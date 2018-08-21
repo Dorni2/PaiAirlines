@@ -1,0 +1,11 @@
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.deps.json
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.runtimeconfig.json
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.runtimeconfig.dev.json
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.dll
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.pdb
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.csproj.CoreCompileInputs.cache
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfoInputs.cache
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfo.cs
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.dll
+C:\GitProjects\PaiAirlines\PaiAirlines\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.pdb

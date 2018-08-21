@@ -1,0 +1,85 @@
+@model PaiAirlines.Models.Price
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Price</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="FlightId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FlightId" class="form-control" />
+                <span asp-validation-for="FlightId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ScheduleId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ScheduleId" class="form-control" />
+                <span asp-validation-for="ScheduleId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Economy" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Economy" class="form-control" />
+                <span asp-validation-for="Economy" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Bussiness" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Bussiness" class="form-control" />
+                <span asp-validation-for="Bussiness" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="First" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="First" class="form-control" />
+                <span asp-validation-for="First" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LuggagePrice" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="LuggagePrice" class="form-control" />
+                <span asp-validation-for="LuggagePrice" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ValidFrom" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ValidFrom" class="form-control" />
+                <span asp-validation-for="ValidFrom" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ValidTo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ValidTo" class="form-control" />
+                <span asp-validation-for="ValidTo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

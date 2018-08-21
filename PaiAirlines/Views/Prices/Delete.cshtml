@@ -1,0 +1,71 @@
+@model PaiAirlines.Models.Price
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Price</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="ID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Economy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Economy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bussiness)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bussiness)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.First)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LuggagePrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LuggagePrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidTo)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

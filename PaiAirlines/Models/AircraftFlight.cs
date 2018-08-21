@@ -8,14 +8,16 @@ namespace PaiAirlines.Models
     public class AircraftFlight
     {
         #region Propties
+        public int ID { get; set; }
+
         // Id of the flight time in the scheduler
-        public int ScheduleId { get; set; }
+        public Schedule schdl { get; set; }
 
         // Id of aircraft in this flight
-        public int AircraftId { get; set; }
+        public Aircraft arcft { get; set; }
 
         // Id of flight, which flight will occure in this time with this airplane
-        public int FlightId { get; set; }
+        public Flight flght { get; set; }
 
         // Amount of taken economy seats
         public int EconomySeatsTaken { get; set; }
