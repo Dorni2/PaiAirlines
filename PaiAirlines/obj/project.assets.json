@@ -10950,7 +10950,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\Dor\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -10958,11 +10958,11 @@
       "projectUniqueName": "D:\\Dor\\Projects\\NewPai2\\PaiAirlines\\PaiAirlines.csproj",
       "projectName": "PaiAirlines",
       "projectPath": "D:\\Dor\\Projects\\NewPai2\\PaiAirlines\\PaiAirlines.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Dor\\.nuget\\packages\\",
       "outputPath": "D:\\Dor\\Projects\\NewPai2\\PaiAirlines\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dor\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

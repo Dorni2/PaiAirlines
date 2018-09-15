@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    //PaiDBContext paiDB = new PaiDBContext(null);
 }
 
 <h2>Create</h2>
@@ -12,9 +13,27 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="ID" class="col-md-2 control-label"></label>
+            <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ID" class ="form-control" asp-items="ViewBag.ID"></select>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CntrID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select name="CntrID" asp-for="CntrID" class="form-control">
+                    @{
+                        List<Country> lst = (List<Country>)ViewData["Countrylist"];
+                        foreach (var cItem in lst)
+                        {
+                            <option value=@cItem.ID>@cItem.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CntrID" class="text-danger"></span>
+                @*<input asp-for="Name" class="form-control" />
+                *@
             </div>
         </div>
         <div class="form-group">
@@ -29,6 +48,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

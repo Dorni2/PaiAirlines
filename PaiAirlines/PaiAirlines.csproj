@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180914215229_CityFix-CntrId.cs" />
+    <Compile Remove="Migrations\20180914215229_CityFix-CntrId.Designer.cs" />
     <Compile Remove="Models\Aircraft-flight.cs" />
     <Compile Remove="Models\TicketsInBooking.cs" />
   </ItemGroup>

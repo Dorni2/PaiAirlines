@@ -11,9 +11,9 @@ namespace PaiAirlines.Models
         #region Properties
         public int ID { get; set; }
 
-        public Country Cntr { get; set; }
+        public string Name { get; set; }
 
-        public Airport Aprt { get; set; } 
+        public int CntrID { get; set; }
         #endregion
     }
 }

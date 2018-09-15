@@ -1,0 +1,105 @@
+@model PaiAirlines.Models.User
+
+@{
+    ViewData["Title"] = "Rgister";
+}
+
+<h2>Register</h2>
+
+<form asp-action="Register">
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Street" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CntryID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                 <select id="CntryID" name="CntryID" asp-for="CntryID" class="form-control">
+                    @{
+                        List<Country> lstCountry = (List<Country>)ViewData["Countrylist"];
+                        foreach (var cItem in lstCountry)
+                        {
+                            <option value=@cItem.ID>@cItem.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CntryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CtyID" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select name="CntryID" asp-for="CtyID" class="form-control">
+                        
+                        <script>
+                            $(document).ready(function () {
+                                var id = $("#CntryID").val()
+                                alert(id)
+                            });
+                        </script>
+                        @{ 
+                            List<City> lstCity = (List<City>)ViewData["Citylist"];
+                            foreach (var cItem in lstCity)
+                            {
+                                    <option value=@cItem.ID>@cItem.Name</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="CtyID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Register" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

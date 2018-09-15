@@ -148,5 +148,39 @@ namespace PaiAirlines.Controllers
         {
             return _context.User.Any(e => e.ID == id);
         }
+
+        //
+        // GET: Users/Register
+        public IActionResult Register()
+        {
+            List<Country> lstCountry = _context.Country.ToList<Country>();
+            ViewData["Countrylist"] = lstCountry;
+            List<City> lstCity = _context.City.ToList<City>();
+            ViewData["Citylist"] = lstCity;
+            return View();
+        }
+
+        // POST: Users/Register
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("ID,FirstName,LastName,Street,Phone,Email,Password")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                user.IsAdmin = false;
+                user.IsMatmid = false;
+                //City city = new City();
+                //city.Name = user.Cty.Name;
+                //city.Cntr = user.Cntry;
+                //_context.Add(city);
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
     }
 }

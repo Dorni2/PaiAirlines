@@ -21,8 +21,7 @@ namespace PaiAirlines.Controllers
         // GET: Cities
         public async Task<IActionResult> Index()
         {
-            var paiDBContext = _context.City.Include(c => c.Aprt);
-            return View(await paiDBContext.ToListAsync());
+            return View(await _context.City.ToListAsync());
         }
 
         // GET: Cities/Details/5
@@ -34,7 +33,6 @@ namespace PaiAirlines.Controllers
             }
 
             var city = await _context.City
-                .Include(c => c.Aprt)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (city == null)
             {
@@ -47,7 +45,8 @@ namespace PaiAirlines.Controllers
         // GET: Cities/Create
         public IActionResult Create()
         {
-            ViewData["ID"] = new SelectList(_context.Airport, "ID", "ID");
+            List<Country> lstCountry = _context.Country.ToList<Country>();
+            ViewData["Countrylist"] = lstCountry;
             return View();
         }
 
@@ -56,7 +55,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID")] City city)
+        public async Task<IActionResult> Create([Bind("ID,Name,CntrID")] City city)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +63,6 @@ namespace PaiAirlines.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["ID"] = new SelectList(_context.Airport, "ID", "ID", city.ID);
             return View(city);
         }
 
@@ -81,7 +79,6 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-            ViewData["ID"] = new SelectList(_context.Airport, "ID", "ID", city.ID);
             return View(city);
         }
 
@@ -90,7 +87,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID")] City city)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] City city)
         {
             if (id != city.ID)
             {
@@ -117,7 +114,6 @@ namespace PaiAirlines.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["ID"] = new SelectList(_context.Airport, "ID", "ID", city.ID);
             return View(city);
         }
 
@@ -130,7 +126,6 @@ namespace PaiAirlines.Controllers
             }
 
             var city = await _context.City
-                .Include(c => c.Aprt)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (city == null)
             {
