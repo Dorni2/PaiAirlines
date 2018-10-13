@@ -71,13 +71,6 @@
                 <label asp-for="CtyID" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <select name="CntryID" asp-for="CtyID" class="form-control">
-                        
-                        <script>
-                            $(document).ready(function () {
-                                var id = $("#CntryID").val()
-                                alert(id)
-                            });
-                        </script>
                         @{ 
                             List<City> lstCity = (List<City>)ViewData["Citylist"];
                             foreach (var cItem in lstCity)

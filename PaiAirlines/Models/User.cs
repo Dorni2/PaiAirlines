@@ -20,11 +20,9 @@ namespace PaiAirlines.Models
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
         public int CntryID { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
         public int CtyID { get; set; }
 
         [Required]

@@ -165,7 +165,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("ID,FirstName,LastName,Street,Phone,Email,Password")] User user)
+        public async Task<IActionResult> Register([Bind("ID,FirstName,LastName,Street,Phone,Email,Password,CntryID,CtyID")] User user)
         {
             if (ModelState.IsValid)
             {
