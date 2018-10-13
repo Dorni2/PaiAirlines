@@ -182,5 +182,22 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
+        // POST: Users/AdminSign
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminSign([Bind("Email,Password")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //_context.Add(user);
+                //await _context.SaveChangesAsync();
+                _context.User.Where(CurrUser => user.Email == CurrUser.Email && CurrUser.IsAdmin);
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
     }
 }
