@@ -9,22 +9,25 @@ using PaiAirlines.Models;
 
 namespace PaiAirlines.Controllers
 {
-    public class UsersController : Controller
+    public class AdminController : Controller
     {
         private readonly PaiDBContext _context;
 
-        public UsersController(PaiDBContext context)
+        public AdminController(PaiDBContext context)
         {
             _context = context;    
         }
 
-        // GET: Users
+
+
+
+        // GET: Admin
         public async Task<IActionResult> Index()
         {
             return View(await _context.User.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Admin/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,18 +45,18 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
+        // GET: Admin/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Admin/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Street,Phone,IsAdmin,IsMatmid")] User user)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,CntryID,CtyID,Street,Phone,IsAdmin,IsMatmid,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +67,7 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
-        // GET: Users/Edit/5
+        // GET: Admin/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,12 +83,12 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit/5
+        // POST: Admin/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Street,Phone,IsAdmin,IsMatmid")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,CntryID,CtyID,Street,Phone,IsAdmin,IsMatmid,Email,Password")] User user)
         {
             if (id != user.ID)
             {
@@ -115,7 +118,7 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
-        // GET: Users/Delete/5
+        // GET: Admin/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +136,7 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
+        // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -147,70 +150,6 @@ namespace PaiAirlines.Controllers
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.ID == id);
-        }
-
-        //
-        // GET: Users/Register
-        public IActionResult Register()
-        {
-            List<Country> lstCountry = _context.Country.ToList<Country>();
-            ViewData["Countrylist"] = lstCountry;
-            List<City> lstCity = _context.City.ToList<City>();
-            ViewData["Citylist"] = lstCity;
-            return View();
-        }
-
-        // POST: Users/Register
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("ID,FirstName,LastName,Street,Phone,Email,Password,CntryID,CtyID")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                user.IsAdmin = false;
-                user.IsMatmid = false;
-                //City city = new City();
-                //city.Name = user.Cty.Name;
-                //city.Cntr = user.Cntry;
-                //_context.Add(city);
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(user);
-        }
-
-
-        //
-        // GET: Users/AdminSign
-        public IActionResult AdminSign()
-        {
-            return View();
-        }
-
-
-        // POST: Users/AdminSign
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminSign([Bind("Email,Password")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                User admin = (User)_context.User.Where(CurrUser => user.Email == CurrUser.Email && CurrUser.IsAdmin);
-                if (admin != null)
-                {
-                    return RedirectToAction("AdminStuff", "Admin");
-                }
-                else
-                {
-
-                }
-            }
-            return View(user);
         }
     }
 }
