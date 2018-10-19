@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using PaiAirlines.Models;
 using PaiAirlines.Models.AccountViewModels;
 using PaiAirlines.Services;
+using PaiAirlines.Models;
 
 namespace PaiAirlines.Controllers
 {
@@ -24,6 +25,7 @@ namespace PaiAirlines.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        private readonly PaiDBContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -31,7 +33,8 @@ namespace PaiAirlines.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            PaiDBContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +42,7 @@ namespace PaiAirlines.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _context = context;
         }
 
         //
@@ -54,7 +58,7 @@ namespace PaiAirlines.Controllers
             return View();
         }
 
-        //
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -91,6 +95,35 @@ namespace PaiAirlines.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        // POST: /Account/Login
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Login([Bind("Email,Password")] User user, string returnUrl = null)
+        //{
+
+        //    ViewData["ReturnUrl"] = returnUrl;
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (_context.User.Select(currUser =>
+        //         user.Password == currUser.Password &&
+        //         user.Email == currUser.Email) != null)
+        //        {
+        //            _logger.LogInformation(1, "User logged in.");
+        //            return RedirectToLocal(returnUrl);
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        //            return View(model);
+        //        }
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/Register

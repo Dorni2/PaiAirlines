@@ -148,5 +148,11 @@ namespace PaiAirlines.Controllers
         {
             return _context.Airport.Any(e => e.ID == id);
         }
+
+        // GET: Airports/Map
+        public IActionResult Map()
+        {
+            return View();
+        }
     }
 }

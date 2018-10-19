@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaiAirlines.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace PaiAirlines.Controllers
 {
@@ -15,7 +17,7 @@ namespace PaiAirlines.Controllers
 
         public UsersController(PaiDBContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Users
@@ -59,7 +61,11 @@ namespace PaiAirlines.Controllers
             {
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Home", "Index");
+            }
+            else
+            {
+
             }
             return View(user);
         }
@@ -212,5 +218,30 @@ namespace PaiAirlines.Controllers
             }
             return View(user);
         }
+
+        //GET: Users/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        //POST: Users/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("Email,Password")] User user)
+        {
+            User tempUser = _context.User.Single(currUser => user.Password == currUser.Password && user.Email == currUser.Email);
+            if (tempUser != null)
+            {
+                HttpContext.Session.SetString("currUser", tempUser.FirstName);
+                HttpContext.Session.SetString("isAdmin", tempUser.IsAdmin.ToString());
+                return RedirectToAction("Index", "Home");
+            }
+
+            //TODO: what to return when login incorrect
+            return null;
+
+        }
+
     }
 }
