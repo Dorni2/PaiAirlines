@@ -10955,11 +10955,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dor\\לימודים\\Pai\\NewPai2\\NewPai2\\PaiAirlines\\PaiAirlines.csproj",
+      "projectUniqueName": "D:\\Dor\\לימודים\\Pai-Ready\\NewPai2\\NewPai2\\PaiAirlines\\PaiAirlines.csproj",
       "projectName": "PaiAirlines",
-      "projectPath": "D:\\Dor\\לימודים\\Pai\\NewPai2\\NewPai2\\PaiAirlines\\PaiAirlines.csproj",
+      "projectPath": "D:\\Dor\\לימודים\\Pai-Ready\\NewPai2\\NewPai2\\PaiAirlines\\PaiAirlines.csproj",
       "packagesPath": "C:\\Users\\Dor\\.nuget\\packages\\",
-      "outputPath": "D:\\Dor\\לימודים\\Pai\\NewPai2\\NewPai2\\PaiAirlines\\obj\\",
+      "outputPath": "D:\\Dor\\לימודים\\Pai-Ready\\NewPai2\\NewPai2\\PaiAirlines\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dor\\AppData\\Roaming\\NuGet\\NuGet.Config",
