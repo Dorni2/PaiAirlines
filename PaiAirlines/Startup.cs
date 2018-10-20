@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using PaiAirlines.Data;
 using PaiAirlines.Models;
 using PaiAirlines.Services;
+using Microsoft.AspNetCore;
 
 namespace PaiAirlines
 {
@@ -48,6 +49,9 @@ namespace PaiAirlines
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            // Using session
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -79,6 +83,8 @@ namespace PaiAirlines
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
