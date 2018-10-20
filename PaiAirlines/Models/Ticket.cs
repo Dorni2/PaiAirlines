@@ -10,9 +10,9 @@ namespace PaiAirlines.Models
         #region Properties
         public int ID { get; set; }
 
-        public int BookingId { get; set; }
+        public Booking bkn { get; set; }
 
-        public int SeatId { get; set; }
+        public Seat seat { get; set; }
 
         public string Prefix { get; set; }
 

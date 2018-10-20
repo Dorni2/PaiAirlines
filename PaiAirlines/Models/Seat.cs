@@ -8,6 +8,8 @@ namespace PaiAirlines.Models
     public class Seat
     {
         #region Properties
+        public int ID { get; set; }
+
         public Aircraft Arcft { get; set; }
 
         public int SeatNum { get; set; }

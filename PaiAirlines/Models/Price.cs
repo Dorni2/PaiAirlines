@@ -10,9 +10,9 @@ namespace PaiAirlines.Models
         #region Properties
         public int ID { get; set; }
 
-        public int FlightId { get; set; }
+        public Flight flght { get; set; }
 
-        public int ScheduleId { get; set; }
+        public Schedule schdl { get; set; }
 
         // Price of Economy seat
         public int Economy { get; set; }

@@ -11,7 +11,6 @@ namespace PaiAirlines.Models
 
         public int ID { get; set; }
 
-
         public User Usr { get; set; }
 
         public Schedule Scdl { get; set; }

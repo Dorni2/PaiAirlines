@@ -1,0 +1,66 @@
+@model PaiAirlines.Models.Price
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Price</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Economy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Economy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bussiness)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bussiness)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.First)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LuggagePrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LuggagePrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidTo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

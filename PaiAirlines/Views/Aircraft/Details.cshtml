@@ -1,0 +1,54 @@
+@model PaiAirlines.Models.Aircraft
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Aircraft</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EconomySeats)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EconomySeats)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BussinessSeats)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BussinessSeats)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstSeats)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstSeats)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Range)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Range)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

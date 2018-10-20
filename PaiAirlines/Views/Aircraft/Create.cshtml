@@ -1,0 +1,70 @@
+@model PaiAirlines.Models.Aircraft
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Aircraft</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Type" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Size" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EconomySeats" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EconomySeats" class="form-control" />
+                <span asp-validation-for="EconomySeats" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BussinessSeats" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BussinessSeats" class="form-control" />
+                <span asp-validation-for="BussinessSeats" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstSeats" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FirstSeats" class="form-control" />
+                <span asp-validation-for="FirstSeats" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Range" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Range" class="form-control" />
+                <span asp-validation-for="Range" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
