@@ -154,5 +154,29 @@ namespace PaiAirlines.Controllers
         {
             return View();
         }
+
+        // GET: Airports/Search
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        // POST: Airports/Search
+        public async Task<IActionResult> Search([Bind("Name,IATAcode")] Airport airport)
+        {
+            List<Airport> lstAirports = _context.Airport.Where(currAirport => currAirport.Name == airport.Name && currAirport.IATAcode == airport.IATAcode).ToList();
+            
+            
+
+            return View(lstAirports);
+            
+            //var airport = await _context.Airport
+            //    .SingleOrDefaultAsync(m => m.ID == id);
+            //if (airport == null)
+            //{
+            //    return NotFound();
+            //}
+
+        }
     }
 }

@@ -91,7 +91,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Street,Phone,IsAdmin,IsMatmid")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,IsAdmin,IsMatmid")] User user)
         {
             if (id != user.ID)
             {
@@ -159,8 +159,6 @@ namespace PaiAirlines.Controllers
         // GET: Users/Register
         public IActionResult Register()
         {
-            List<Country> lstCountry = _context.Country.ToList<Country>();
-            ViewData["Countrylist"] = lstCountry;
             List<City> lstCity = _context.City.ToList<City>();
             ViewData["Citylist"] = lstCity;
             return View();
@@ -171,12 +169,12 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("ID,FirstName,LastName,Street,Phone,Email,Password,CntryID,CtyID")] User user)
+        public async Task<IActionResult> Register([Bind("ID,FirstName,LastName,Email,Password,CtyID")] User user)
         {
             if (ModelState.IsValid)
             {
                 user.IsAdmin = false;
-                user.IsMatmid = false;
+                //user.IsMatmid = false;
                 //City city = new City();
                 //city.Name = user.Cty.Name;
                 //city.Cntr = user.Cntry;

@@ -11098,13 +11098,5 @@
         ]
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Dor\\לימודים\\Pai-Ready\\NewPai2\\NewPai2\\PaiAirlines\\obj\\PaiAirlines.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

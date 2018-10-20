@@ -19,26 +19,26 @@ namespace PaiAirlines.Models
         [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
         public string LastName { get; set; }
 
-        [Required]
-        public int CntryID { get; set; }
+        //[Required]
+        //public int CntryID { get; set; }
 
         [Required]
         public int CtyID { get; set; }
 
-        [Required]
-        [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
-        public string Street { get; set; }
+        //[Required]
+        //[StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
+        //public string Street { get; set; }
 
-        [Required]
-        [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
-        [Phone]
-        public string Phone { get; set; }
+        //[Required]
+        //[StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
+        //[Phone]
+        //public string Phone { get; set; }
 
         [Required]
         public bool IsAdmin { get; set; }
 
-        [Required]
-        public bool IsMatmid { get; set; }
+        //[Required]
+        //public bool IsMatmid { get; set; }
 
         [Required]
         [EmailAddress]

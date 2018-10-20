@@ -12,8 +12,6 @@ namespace PaiAirlines.Models
         public int ID { get; set; }
 
         public string Name { get; set; }
-
-        public int CntrID { get; set; }
         #endregion
     }
 }
