@@ -16,10 +16,10 @@
                     @Html.DisplayNameFor(model => model.FlightNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.OriginId)
+                    @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DestinationId)
+                    @Html.DisplayNameFor(model => model.Price)
                 </th>
             <th></th>
         </tr>
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.FlightNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OriginId)
+                @Html.DisplayFor(modelItem => item.Time)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DestinationId)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

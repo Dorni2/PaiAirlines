@@ -21,29 +21,54 @@
         <div class="form-group">
             <label asp-for="OriginId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="OriginId" class="form-control" />
+                <select name="OriginId" asp-for="OriginId" class="form-control">
+                    @{
+                        List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
+                        foreach (var cItem in lstCityOrig)
+                        {
+                            <option value=@cItem.ID>@cItem.Name</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="OriginId" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DestinationId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="DestinationId" class="form-control" />
-                <span asp-validation-for="DestinationId" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="DestinationId" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select name="DestinationId" asp-for="DestinationId" class="form-control">
+                        @{
+                            List<City> lstCityDest = (List<City>)ViewData["Citylist"];
+                            foreach (var cItem in lstCityDest)
+                            {
+                                <option value=@cItem.ID>@cItem.Name</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="DestinationId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Time" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Time" type="datetime-local" class="form-control" />
+                        <span asp-validation-for="Time" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
 </form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

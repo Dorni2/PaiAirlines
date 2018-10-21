@@ -45,6 +45,7 @@ namespace PaiAirlines.Controllers
         // GET: Flights/Create
         public IActionResult Create()
         {
+            ViewData["Citylist"] = _context.City.ToList();
             return View();
         }
 
@@ -53,7 +54,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FlightNumber,OriginId,DestinationId")] Flight flight)
+        public async Task<IActionResult> Create([Bind("ID,FlightNumber,OriginId,DestinationId,Time,Price")] Flight flight)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +64,22 @@ namespace PaiAirlines.Controllers
             }
             return View(flight);
         }
+
+        //// POST: Flights/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("ID,FlightNumber,Time,Price")] Flight flight)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(flight);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(flight);
+        //}
 
         // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -85,7 +102,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FlightNumber,OriginId,DestinationId")] Flight flight)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FlightNumber,Time,Price")] Flight flight)
         {
             if (id != flight.ID)
             {
@@ -148,5 +165,7 @@ namespace PaiAirlines.Controllers
         {
             return _context.Flight.Any(e => e.ID == id);
         }
+
+
     }
 }

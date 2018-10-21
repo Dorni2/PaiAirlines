@@ -16,10 +16,10 @@ namespace PaiAirlines.Models
         public int FlightNumber { get; set; }
 
         // Id of origin. e.g. for TLV, id=4
-        public City OriginId { get; set; }
+        public int OriginId { get; set; }
 
         // Id of destination. e.g. for TLV, id=4
-        public City DestinationId { get; set; }
+        public int DestinationId { get; set; }
 
         public DateTime Time { get; set; }
 
