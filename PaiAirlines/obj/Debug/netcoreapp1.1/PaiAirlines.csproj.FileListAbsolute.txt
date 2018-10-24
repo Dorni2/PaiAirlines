@@ -57,3 +57,15 @@ D:\Dor\לימודים\Pai-Ready\NewPai2\NewPai2\PaiAirlines\obj\Debug\netcoreapp
 D:\Dor\לימודים\Pai-Ready\NewPai2\NewPai2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.dll
 D:\Dor\לימודים\Pai-Ready\NewPai2\NewPai2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.pdb
 D:\Dor\לימודים\Pai-Ready\NewPai2\NewPai2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.csprojAssemblyReference.cache
+D:\Dor\PaiAirlines - ready\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.deps.json
+D:\Dor\PaiAirlines - ready\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.runtimeconfig.json
+D:\Dor\PaiAirlines - ready\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.runtimeconfig.dev.json
+D:\Dor\PaiAirlines - ready\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.dll
+D:\Dor\PaiAirlines - ready\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.pdb
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.csprojAssemblyReference.cache
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.csproj.CoreCompileInputs.cache
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfoInputs.cache
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfo.cs
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.dll
+D:\Dor\PaiAirlines - ready\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.pdb

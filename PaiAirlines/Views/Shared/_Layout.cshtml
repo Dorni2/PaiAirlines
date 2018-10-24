@@ -1,4 +1,9 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor contextHttp
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,8 +52,15 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                    @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
+                    {
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index">View Users</a></li>
+                        <li><a asp-area="" asp-controller="Flights" asp-action="Index">View Flights</a></li>
+                        <li><a asp-area="" asp-controller="Cities" asp-action="Index">View Cities</a></li>
+                    }
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                    @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>

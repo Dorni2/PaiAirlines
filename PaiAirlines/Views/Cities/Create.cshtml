@@ -12,28 +12,25 @@
         <h4>City</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Name" class="col-md-2 control-label"></label>
+        @*<div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label" name="Name" id="Name"></label>
             <div class="col-md-10">
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" name="Name" id="Name" />
+                <span asp-validation-for="Name" class="text-danger" name="Name" id="Name"></span>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="col-md-2 control-label" name="CityName" id="CityName">City Name</label>
+            <div class="col-md-10">
+                <input class="form-control" name="CityName" id="CityName" />
+                <span class="text-danger" name="CityName" id="CityName"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="CntrID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select name="CntrID" asp-for="CntrID" class="form-control">
-                    @{
-                        List<Country> lst = (List<Country>)ViewData["Countrylist"];
-                        foreach (var cItem in lst)
-                        {
-                            <option value=@cItem.ID>@cItem.Name</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="CntrID" class="text-danger"></span>
-                @*<input asp-for="Name" class="form-control" />
-                *@
+            <label class="col-md-2 control-label" name="CountryName" id="CountryName">Country Name</label>
+            <div class="col-md-10" name="Country" id="CountryName">
+                <input class="form-control" name="CountryName" id="CountryName" />
+                <span class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">

@@ -33,6 +33,7 @@ else
     {
         string userName = contextHttp.HttpContext.Session.GetString("currUser");
         <li>Hello @userName</li>
-    }
-</ul>
+        <li><a asp-area="" asp-controller="Users" asp-action="Logout">Log Out</a></li>
+        }
+    </ul>
 @*}*@

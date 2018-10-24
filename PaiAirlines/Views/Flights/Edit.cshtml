@@ -11,7 +11,7 @@
         <h4>Flight</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ID" />
         <div class="form-group">
             <label asp-for="FlightNumber" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -22,7 +22,7 @@
         <div class="form-group">
             <label asp-for="Time" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Time" class="form-control" />
+                <input asp-for="Time" type="datetime-local" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
         </div>

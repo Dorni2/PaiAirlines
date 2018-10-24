@@ -55,15 +55,15 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,CntrID")] City city)
+        //public async Task<IActionResult> Create([Bind("ID,Name,CntrID")] City city)
+        public async Task<IActionResult> Create(string CityName, string CountryName)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(city);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(city);
+            City city = new City();
+            city.Name = CityName + "," + CountryName;
+            _context.Add(city);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+
         }
 
         // GET: Cities/Edit/5
@@ -82,13 +82,54 @@ namespace PaiAirlines.Controllers
             return View(city);
         }
 
+        //// POST: Cities/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] City city)
+        //{
+        //    if (id != city.ID)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(city);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!CityExists(city.ID))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(city);
+        //}
+
         // POST: Cities/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] City city)
+        public async Task<IActionResult> Edit(int id, string CityName, string CountryName)
         {
+            City city = new City
+            {
+                Name = CityName + "," + CountryName,
+                ID = id
+
+            };
             if (id != city.ID)
             {
                 return NotFound();

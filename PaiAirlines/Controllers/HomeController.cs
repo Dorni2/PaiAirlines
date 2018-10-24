@@ -31,5 +31,11 @@ namespace PaiAirlines.Controllers
         {
             return View();
         }
+
+        public IActionResult NoAccess()
+        {
+            return View();
+        }
+
     }
 }

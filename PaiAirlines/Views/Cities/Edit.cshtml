@@ -11,12 +11,26 @@
         <h4>City</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ID" />
-        <div class="form-group">
+        <input type="hidden" asp-for="ID" />
+        @*<div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="col-md-2 control-label" name="CityName" id="CityName">City Name</label>
+            <div class="col-md-10">
+                <input class="form-control" name="CityName" id="CityName" />
+                <span class="text-danger" name="CityName" id="CityName"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" name="CountryName" id="CountryName">Country Name</label>
+            <div class="col-md-10" name="Country" id="CountryName">
+                <input class="form-control" name="CountryName" id="CountryName" />
+                <span class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">

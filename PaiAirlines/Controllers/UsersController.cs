@@ -23,6 +23,10 @@ namespace PaiAirlines.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             return View(await _context.User.ToListAsync());
         }
 
@@ -83,6 +87,7 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
+            ViewData["Citylist"] = _context.City.ToList();
             return View(user);
         }
 
@@ -91,7 +96,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,IsAdmin,IsMatmid")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Password,CtyID,IsAdmin")] User user)
         {
             if (id != user.ID)
             {
@@ -240,6 +245,23 @@ namespace PaiAirlines.Controllers
             return null;
 
         }
+
+        //GET: Users/Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
+        ////POST: Users/Logout
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Logout()
+        //{
+        //    HttpContext.Session.Clear();
+        //    return RedirectToAction("Index", "Home");
+
+        //}
 
     }
 }
