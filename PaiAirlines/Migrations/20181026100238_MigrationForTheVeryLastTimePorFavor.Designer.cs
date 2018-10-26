@@ -8,9 +8,10 @@ using PaiAirlines.Models;
 namespace PaiAirlines.Migrations
 {
     [DbContext(typeof(PaiDBContext))]
-    partial class PaiDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181026100238_MigrationForTheVeryLastTimePorFavor")]
+    partial class MigrationForTheVeryLastTimePorFavor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -92,8 +93,6 @@ namespace PaiAirlines.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("FlightID");
-
-                    b.Property<int>("SeatsAmount");
 
                     b.Property<int>("TotalPrice");
 

@@ -11,13 +11,11 @@ namespace PaiAirlines.Models
 
         public int ID { get; set; }
 
-        public User Usr { get; set; }
+        public int Userid { get; set; }
 
-        public Schedule Scdl { get; set; }
+        public int FlightID { get; set; }
 
-        public Aircraft Arcft { get; set; }
-
-        public Flight Flt { get; set; }
+        public int SeatsAmount { get; set; }
 
         public int TotalPrice { get; set; } 
 

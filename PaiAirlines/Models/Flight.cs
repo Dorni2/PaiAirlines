@@ -21,6 +21,8 @@ namespace PaiAirlines.Models
         // Id of destination. e.g. for TLV, id=4
         public int DestinationId { get; set; }
 
+        public int Seats { get; set; }
+
         public DateTime Time { get; set; }
 
         public int Price { get; set; }
