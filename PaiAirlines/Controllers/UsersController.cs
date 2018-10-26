@@ -186,7 +186,7 @@ namespace PaiAirlines.Controllers
                 //_context.Add(city);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(user);
         }
