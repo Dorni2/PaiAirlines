@@ -237,7 +237,10 @@ namespace PaiAirlines.Controllers
             if (tempUser != null)
             {
                 HttpContext.Session.SetString("currUser", tempUser.FirstName);
+                HttpContext.Session.SetString("ID", tempUser.ID.ToString());
+                HttpContext.Session.SetString("Email", tempUser.Email);
                 HttpContext.Session.SetString("isAdmin", tempUser.IsAdmin.ToString());
+
                 return RedirectToAction("Index", "Home");
             }
 
