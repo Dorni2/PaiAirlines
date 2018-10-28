@@ -1,0 +1,131 @@
+@model IEnumerable<PaiAirlines.Models.Flight>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search</h2>
+
+<form asp-action="Search">
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Origin</label>
+            <select class="form-control" name="OrigId">
+                <option value="0">Choose Origin</option>
+                @{
+                        List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
+                        foreach (var cItem in lstCityOrig)
+                        {
+                    <option value=@cItem.ID>@cItem.Name</option>
+                        }
+                }
+            </select>
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Destination</label>
+            <select class="form-control" name="CityId">
+                <option value="0">Choose Destination</option>
+                @{
+                     List<City> lstCityDest = (List<City>)ViewData["Citylist"];
+                     foreach (var cItem in lstCityDest)
+                     {
+                    <option value=@cItem.ID>@cItem.Name</option>
+                     }
+                }
+            </select>
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Max Price</label>
+            <input type="number" name="Max" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    </br></br>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DestinationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Flight item in Model)
+        {
+            List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
+            string Dest = "Test";
+            string Orig = "Test";
+            foreach (var cItem in lstCityOrig)
+            {
+                if (item.OriginId == cItem.ID)
+                {
+                    Orig = cItem.Name;
+                    break;
+                }
+            }
+            foreach (var cItem in lstCityOrig)
+            {
+                if (item.DestinationId == cItem.ID)
+                {
+                    Dest = cItem.Name;
+                    break;
+                }
+            }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightNumber)
+            </td>
+            <td>
+                @Orig
+            </td>
+            <td>
+                @Dest
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+        </table>

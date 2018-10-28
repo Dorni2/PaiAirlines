@@ -166,6 +166,30 @@ namespace PaiAirlines.Controllers
             return _context.Flight.Any(e => e.ID == id);
         }
 
+        // GET: Flights/Search
+        public async Task<IActionResult> Search(int CityId, int OrigID, int Max)
+        {
+            ViewData["Citylist"] = _context.City.ToList();
+            List<Flight> lstFilter  = _context.Flight.ToList();
+            //if (CityId != null && CityId != 0)
+            //{
+            //    return View(_context.Flight.Where(flt => flt.DestinationId == CityId).ToList());
+            //}
+            if (CityId != null && CityId != 0)
+            {
+                lstFilter = lstFilter.Where(flt => flt.DestinationId == CityId).ToList();
+            }
+            if (OrigID != null && OrigID != 0)
+            {
+                lstFilter = lstFilter.Where(flt => flt.OriginId == OrigID).ToList();
+            }
+            if (Max != null && Max != 0)
+            {
+                lstFilter = lstFilter.Where(flt => flt.Price <= Max).ToList();
+            }
+
+            return View(lstFilter);
+        }
 
     }
 }
