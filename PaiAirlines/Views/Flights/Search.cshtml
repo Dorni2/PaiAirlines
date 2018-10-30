@@ -47,6 +47,14 @@
         </div>
     </div>
     </br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Departure Date</label>
+            <input type="date" name="FlightDate" placeholder="MM/DD/YYYY" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    </br></br>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Search" class="btn btn-default" />
@@ -121,9 +129,13 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                @*if (contextHttp.HttpContext.Session.GetString("isAdmin") == True.ToString())
+                {*@
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
+                @*}*@
+                <a asp-action="Order" asp-route-id="@item.ID">Order</a>
             </td>
         </tr>
         }

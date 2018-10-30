@@ -1,0 +1,53 @@
+@model IEnumerable<PaiAirlines.Models.Booking>
+
+@{
+    ViewData["Title"] = "myFlights";
+}
+
+<h2>myFlights</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Userid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FlightID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeatsAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Userid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatsAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

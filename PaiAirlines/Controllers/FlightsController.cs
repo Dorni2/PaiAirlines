@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaiAirlines.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PaiAirlines.Controllers
 {
@@ -167,7 +168,7 @@ namespace PaiAirlines.Controllers
         }
 
         // GET: Flights/Search
-        public async Task<IActionResult> Search(int CityId, int OrigID, int Max)
+        public async Task<IActionResult> Search(int CityId, int OrigID, int Max, DateTime FlightDate)
         {
             ViewData["Citylist"] = _context.City.ToList();
             List<Flight> lstFilter  = _context.Flight.ToList();
@@ -187,8 +188,32 @@ namespace PaiAirlines.Controllers
             {
                 lstFilter = lstFilter.Where(flt => flt.Price <= Max).ToList();
             }
+            if (FlightDate >= DateTime.Today)
+            {
+                lstFilter = lstFilter.Where(flt => flt.Time.Date == FlightDate.Date).ToList();
+            }
 
             return View(lstFilter);
+        }
+
+        public async Task<IActionResult> Order (int id)
+        {
+            if (HttpContext.Session.GetString("ID") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+            else
+            {
+                Booking bkng = new Booking();
+                bkng.Userid = int.Parse(HttpContext.Session.GetString("ID"));
+                bkng.FlightID = id;
+                bkng.TotalPrice = _context.Flight.Single(flt => flt.ID == id).Price;
+                _context.Booking.Add(bkng);
+                _context.SaveChangesAsync();
+                return RedirectToAction("index", "Home");
+            }
+
+            
         }
 
     }
