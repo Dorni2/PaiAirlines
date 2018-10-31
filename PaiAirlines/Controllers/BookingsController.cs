@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaiAirlines.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PaiAirlines.Controllers
 {
@@ -147,6 +148,19 @@ namespace PaiAirlines.Controllers
         private bool BookingExists(int id)
         {
             return _context.Booking.Any(e => e.ID == id);
+        }
+
+        // GET: Bookings
+        public async Task<IActionResult> myFlights()
+        {
+            ViewData["Flightlist"] = _context.City.ToList<City>();
+            if (HttpContext.Session.GetString("ID") != null)
+            {
+                return View(await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).ToListAsync());
+                //return View(await _context.Flight.Where(flt => {
+                //    _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID")))} ==)
+            }
+            return RedirectToAction("NoAccess", "Home");
         }
     }
 }
