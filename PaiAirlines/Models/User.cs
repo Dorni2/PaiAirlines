@@ -13,16 +13,19 @@ namespace PaiAirlines.Models
 
         [Required]
         [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "Max 50 characters", MinimumLength = 2)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         //[Required]
         //public int CntryID { get; set; }
 
         [Required]
+        [Display(Name = "City ID")]
         public int CtyID { get; set; }
 
         //[Required]
@@ -35,6 +38,7 @@ namespace PaiAirlines.Models
         //public string Phone { get; set; }
 
         [Required]
+        [Display(Name = "Is Admin")]
         public bool IsAdmin { get; set; }
 
         //[Required]
