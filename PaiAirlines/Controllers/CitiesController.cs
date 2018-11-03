@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaiAirlines.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PaiAirlines.Controllers
 {
@@ -21,6 +22,10 @@ namespace PaiAirlines.Controllers
         // GET: Cities
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             return View(await _context.City.ToListAsync());
         }
 
@@ -45,8 +50,10 @@ namespace PaiAirlines.Controllers
         // GET: Cities/Create
         public IActionResult Create()
         {
-            List<Country> lstCountry = _context.Country.ToList<Country>();
-            ViewData["Countrylist"] = lstCountry;
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             return View();
         }
 

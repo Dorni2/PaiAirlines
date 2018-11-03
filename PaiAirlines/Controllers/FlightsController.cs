@@ -22,6 +22,10 @@ namespace PaiAirlines.Controllers
         // GET: Flights
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             return View(await _context.Flight.ToListAsync());
         }
 
@@ -46,6 +50,10 @@ namespace PaiAirlines.Controllers
         // GET: Flights/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             ViewData["Citylist"] = _context.City.ToList();
             return View();
         }
@@ -172,10 +180,6 @@ namespace PaiAirlines.Controllers
         {
             ViewData["Citylist"] = _context.City.ToList();
             List<Flight> lstFilter  = _context.Flight.ToList();
-            //if (CityId != null && CityId != 0)
-            //{
-            //    return View(_context.Flight.Where(flt => flt.DestinationId == CityId).ToList());
-            //}
             if (CityId != null && CityId != 0)
             {
                 lstFilter = lstFilter.Where(flt => flt.DestinationId == CityId).ToList();
@@ -209,7 +213,7 @@ namespace PaiAirlines.Controllers
                 bkng.FlightID = id;
                 bkng.TotalPrice = _context.Flight.Single(flt => flt.ID == id).Price;
                 _context.Booking.Add(bkng);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return RedirectToAction("index", "Home");
             }
 

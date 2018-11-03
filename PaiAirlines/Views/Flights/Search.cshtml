@@ -1,4 +1,6 @@
 @model IEnumerable<PaiAirlines.Models.Flight>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor contextHttp
 
 @{
     ViewData["Title"] = "Search";
@@ -13,11 +15,11 @@
             <select class="form-control" name="OrigId">
                 <option value="0">Choose Origin</option>
                 @{
-                        List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
-                        foreach (var cItem in lstCityOrig)
-                        {
-                    <option value=@cItem.ID>@cItem.Name</option>
-                        }
+                    List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
+                    foreach (var cItem in lstCityOrig)
+                    {
+                        <option value=@cItem.ID>@cItem.Name</option>
+                    }
                 }
             </select>
             <span class="text-danger"></span>
@@ -29,11 +31,11 @@
             <select class="form-control" name="CityId">
                 <option value="0">Choose Destination</option>
                 @{
-                     List<City> lstCityDest = (List<City>)ViewData["Citylist"];
-                     foreach (var cItem in lstCityDest)
-                     {
-                    <option value=@cItem.ID>@cItem.Name</option>
-                     }
+                    List<City> lstCityDest = (List<City>)ViewData["Citylist"];
+                    foreach (var cItem in lstCityDest)
+                    {
+                        <option value=@cItem.ID>@cItem.Name</option>
+                    }
                 }
             </select>
             <span class="text-danger"></span>
@@ -109,35 +111,35 @@
                     break;
                 }
             }
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightNumber)
-            </td>
-            <td>
-                @Orig
-            </td>
-            <td>
-                @Dest
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seats)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @*if (contextHttp.HttpContext.Session.GetString("isAdmin") == True.ToString())
-                {*@
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
-                @*}*@
-                <a asp-action="Order" asp-route-id="@item.ID">Order</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightNumber)
+                </td>
+                <td>
+                    @Orig
+                </td>
+                <td>
+                    @Dest
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
+                    {
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
+                    }
+                    <a asp-action="Order" asp-route-id="@item.ID">Order</a>
+                </td>
+            </tr>
         }
     </tbody>
-        </table>
+</table>
