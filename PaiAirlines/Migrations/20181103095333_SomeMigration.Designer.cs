@@ -8,9 +8,10 @@ using PaiAirlines.Models;
 namespace PaiAirlines.Migrations
 {
     [DbContext(typeof(PaiDBContext))]
-    partial class PaiDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181103095333_SomeMigration")]
+    partial class SomeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Create";
-    //PaiDBContext paiDB = new PaiDBContext(null);
 }
 
 <h2>Create</h2>
@@ -12,13 +11,6 @@
         <h4>City</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @*<div class="form-group">
-            <label asp-for="Name" class="col-md-2 control-label" name="Name" id="Name"></label>
-            <div class="col-md-10">
-                <input asp-for="Name" class="form-control" name="Name" id="Name" />
-                <span asp-validation-for="Name" class="text-danger" name="Name" id="Name"></span>
-            </div>
-        </div>*@
         <div class="form-group">
             <label class="col-md-2 control-label" name="CityName" id="CityName">City Name</label>
             <div class="col-md-10">

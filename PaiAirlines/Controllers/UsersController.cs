@@ -48,31 +48,31 @@ namespace PaiAirlines.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //// GET: Users/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Street,Phone,IsAdmin,IsMatmid")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Home", "Index");
-            }
-            else
-            {
+        //// POST: Users/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Street,Phone,IsAdmin,IsMatmid")] User user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(user);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Home", "Index");
+        //    }
+        //    else
+        //    {
 
-            }
-            return View(user);
-        }
+        //    }
+        //    return View(user);
+        //}
 
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -192,35 +192,35 @@ namespace PaiAirlines.Controllers
         }
 
 
-        //
-        // GET: Users/AdminSign
-        public IActionResult AdminSign()
-        {
-            return View();
-        }
+        ////
+        //// GET: Users/AdminSign
+        //public IActionResult AdminSign()
+        //{
+        //    return View();
+        //}
 
 
-        // POST: Users/AdminSign
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminSign([Bind("Email,Password")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                User admin = (User)_context.User.Where(CurrUser => user.Email == CurrUser.Email && CurrUser.IsAdmin);
-                if (admin != null)
-                {
-                    return RedirectToAction("AdminStuff", "Admin");
-                }
-                else
-                {
+        //// POST: Users/AdminSign
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AdminSign([Bind("Email,Password")] User user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        User admin = (User)_context.User.Where(CurrUser => user.Email == CurrUser.Email && CurrUser.IsAdmin);
+        //        if (admin != null)
+        //        {
+        //            return RedirectToAction("AdminStuff", "Admin");
+        //        }
+        //        else
+        //        {
 
-                }
-            }
-            return View(user);
-        }
+        //        }
+        //    }
+        //    return View(user);
+        //}
 
         //GET: Users/Login
         public IActionResult Login()
@@ -255,16 +255,5 @@ namespace PaiAirlines.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-
-        ////POST: Users/Logout
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    HttpContext.Session.Clear();
-        //    return RedirectToAction("Index", "Home");
-
-        //}
-
     }
 }

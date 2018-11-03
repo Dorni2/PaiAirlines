@@ -22,6 +22,10 @@ namespace PaiAirlines.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             return View(await _context.Booking.ToListAsync());
         }
 
