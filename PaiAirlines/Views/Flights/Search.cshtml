@@ -5,7 +5,68 @@
 @{
     ViewData["Title"] = "Search";
 }
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
 
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: auto; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #00BCB5;
+        color: white;
+    }
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+</style>
 <h2>Search</h2>
 
 <form asp-action="Search">
@@ -92,10 +153,10 @@
     <tbody>
         @foreach (Flight item in Model)
         {
-            List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
+            List<City> lstCity = (List<City>)ViewData["Citylist"];
             string Dest = "Test";
             string Orig = "Test";
-            foreach (var cItem in lstCityOrig)
+            foreach (var cItem in lstCity)
             {
                 if (item.OriginId == cItem.ID)
                 {
@@ -103,7 +164,7 @@
                     break;
                 }
             }
-            foreach (var cItem in lstCityOrig)
+            foreach (var cItem in lstCity)
             {
                 if (item.DestinationId == cItem.ID)
                 {
@@ -111,6 +172,10 @@
                     break;
                 }
             }
+            string ModalID = "Modal" + item.ID;
+            string BtnID = "Btn" + item.ID;
+            string CloseID = "Close" + item.ID;
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.FlightNumber)
@@ -131,13 +196,56 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
-                    {
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
-                    }
-                    <a asp-action="Order" asp-route-id="@item.ID">Order</a>
+                    <div>
+                        <a id="@BtnID">Show On Map</a> <label>|</label>
+                        <!-- The Modal -->
+                        <div id="@ModalID" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <h2>@Dest</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="https://dev.virtualearth.net/REST/v1/Imagery/Map/AerialWithLabels/@Dest?mapSize=500,400&highlightEntity=1&key=An1CK1H4UGFk1_HFAL7g9EfE7E8iTjzNN2hikZl8yzFpNpDNvNYufpC_IvHhyTIp" />
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            // Get the modal
+                            var modal = document.getElementById("@ModalID");
+
+                            // Get the button that opens the modal
+                            var btn = document.getElementById("@BtnID");
+
+                            // Get the <span> element that closes the modal
+                            var span = document.getElementsByClassName("close")[0];
+
+                            // When the user clicks the button, open the modal
+                            btn.onclick = function () {
+                                modal.style.display = "block";
+                            }
+
+                            // When the user clicks on <span> (x), close the modal
+                            span.onclick = function () {
+                                modal.style.display = "none";
+                            }
+
+                            // When the user clicks anywhere outside of the modal, close it
+                            window.onclick = function (event) {
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+                                }
+                            }
+                        </script>
+                        @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
+                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
+                        }
+                        <a asp-action="Order" asp-route-id="@item.ID">Order</a>
+                    </div>
                 </td>
             </tr>
         }
