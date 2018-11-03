@@ -1,26 +1,22 @@
-@model IEnumerable<PaiAirlines.Models.Booking>
+@model IEnumerable<PaiAirlines.Models.Flight>
 
 @{
     ViewData["Title"] = "myFlights";
 }
 
-<h2>myFlights</h2>
+<h2>My Orders</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-@*<table class="table">
+<table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FlightNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OriginId)
+                Origin
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DestinationId)
+                Destination
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Seats)
@@ -37,7 +33,7 @@
     <tbody>
         @foreach (Flight item in Model)
         {
-            List<Flight> lstCityOrig = (List<Flight>)ViewData["Flightlist"];
+            List<City> lstCityOrig = (List<City>)ViewData["CityList"];
             string Dest = "Test";
             string Orig = "Test";
             foreach (var cItem in lstCityOrig)
@@ -75,22 +71,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            <td>
-                @*if (contextHttp.HttpContext.Session.GetString("isAdmin") == True.ToString())
-                {
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
-                @*}
-                <a asp-action="Order" asp-route-id="@item.ID">Order</a>
-            </td>
         </tr>
         }
     </tbody>
-</table>*@
+</table>
 
 
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
                 <th>
@@ -131,4 +118,4 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@

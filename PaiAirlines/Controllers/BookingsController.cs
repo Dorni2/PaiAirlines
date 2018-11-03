@@ -157,12 +157,23 @@ namespace PaiAirlines.Controllers
         // GET: Bookings
         public async Task<IActionResult> myFlights()
         {
-            ViewData["Flightlist"] = _context.City.ToList<City>();
+            ViewData["CityList"] = _context.City.ToList<City>();
             if (HttpContext.Session.GetString("ID") != null)
             {
-                return View(await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).ToListAsync());
-                //return View(await _context.Flight.Where(flt => {
-                //    _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID")))} ==)
+                // Creates a Join statement which returns the flights belongs to current user by his bookings
+                return View(await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).Join(_context.Flight,
+                                                                                                                                        bkg => bkg.FlightID,
+                                                                                                                                        flt => flt.ID,
+                                                                                                                                        (bkg, flt) => new Flight
+                                                                                                                                        {
+                                                                                                                                            FlightNumber = flt.FlightNumber,
+                                                                                                                                            DestinationId = flt.DestinationId,
+                                                                                                                                            OriginId = flt.OriginId,
+                                                                                                                                            Price = bkg.TotalPrice,
+                                                                                                                                            Seats = bkg.SeatsAmount,
+                                                                                                                                            Time = flt.Time
+                                                                                                                                        })
+                                                                                                                                        .ToListAsync());
             }
             return RedirectToAction("NoAccess", "Home");
         }
