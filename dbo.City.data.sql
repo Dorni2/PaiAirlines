@@ -1,0 +1,16 @@
+SET IDENTITY_INSERT [dbo].[City] ON
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (1, N'Tel-Aviv,Israel')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (2, N'Berlin,Germany')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (3, N'Brussels,Belgium')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (4, N'Brasilia,Brazil')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (5, N'Ottawa,Canada')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (6, N'Cairo,Egypt')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (7, N'Athens,Greece')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (8, N'New Delhi,India')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (9, N'Oslo,Norway')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (10, N'Belgrade,Serbia')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (11, N'Singapore,Singapore')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (12, N'Madrid,Spain')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (14, N'Munich,Germany')
+INSERT INTO [dbo].[City] ([ID], [Name]) VALUES (15, N'Stockholm,Sweden')
+SET IDENTITY_INSERT [dbo].[City] OFF
