@@ -5,52 +5,75 @@
 
 <h2>this page is only for admins</h2>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
 
 
-<canvas id="myChart" width="400" height="400"></canvas>
-@{ 
+<canvas id="BookingsForDestination" width="150" height="150"></canvas>
+<canvas id="BookingPerMounth" width="150" height="150"></canvas>
+@{
+    // creating a list of cities for the graph labels
     List<City> Cities = (List<City>)ViewData["Cities"];
     List<string> CityName = new List<string>();
     Cities.ForEach(ct => CityName.Add(ct.Name));
-    string[] arrNames = CityName.ToArray();
-    Object FlightBooking = ViewData["FlightBooking"];
-    string arr = "[";
-    foreach (string item in arrNames)
+    string[] arrLabels = CityName.ToArray();
+
+    // Creating a list of values for the graph data
+    List<Flight> FlightBooking = (List<Flight>)ViewData["FlightBooking"];
+    List<int> DestinationCount = new List<int>();
+    foreach (City ct in Cities)
     {
-        arr += item + ", "
+        DestinationCount.Add(FlightBooking.Count(fltbk => fltbk.DestinationId == ct.ID));
     }
+    int[] arrData = DestinationCount.ToArray();
+
+    // Creating a list of dates for the labels
+    string[] arrMonthes = { "January", "February", "March", "Abril", "May", "June", "July", "Augost", "September", "October", "November", "December" };
+    int[] arrBookingsByMonth = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    // Creating a list of flights per month
+
+    foreach (Flight bltbk in FlightBooking)
+    {
+        arrBookingsByMonth[(bltbk.Time.Month - 1)] += bltbk.Price;
+    }
+
+
+
+
+    //string[] arrNames = {"Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
 
 
 
 }
 <script>
-    var ctx = document.getElementById("myChart");
+    var ctx = document.getElementById("BookingsForDestination");
+    var dataArrMonth = @Html.Raw(Json.Serialize(arrBookingsByMonth));
+    var labelsArrMonth = @Html.Raw(Json.Serialize(arrMonthes));
     var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
+                type: 'bar',
+                data: {
             //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            labels: @arrNames
-                datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
+                    labels: labelsArrMonth,
+                        datasets: [{
+                label: '# of Bookings for this destination',
+                            data: dataArrMonth,
+                        //data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
             }]
         },
         options: {
@@ -58,7 +81,50 @@
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
-                    }
+                    },
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById("BookingPerMounth");
+    var dataArr = @Html.Raw(Json.Serialize(arrData));
+    var labelsArr = @Html.Raw(Json.Serialize(arrLabels));
+    var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+            //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    labels: labelsArr,
+                        datasets: [{
+                label: '# of Bookings for this destination',
+                        data: dataArr,
+                        //data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
                 }]
             }
         }
@@ -75,40 +141,40 @@
 
 
 @*<script src="https://www.jasondavies.com/wordcloud/cloud.min.js" charset="utf-8"></script>
-<script>
-    //var d3 = require("d3"),
-    //import cloud from ("./d3.layout.cloud");
+    <script>
+        //var d3 = require("d3"),
+        //import cloud from ("./d3.layout.cloud");
 
-    var layout = cloud()
-        .size([500, 500])
-        .words([
-            "Hello", "world", "normally", "you", "want", "more", "words",
-            "than", "this"].map(function (d) {
-                return { text: d, size: 10 + Math.random() * 90, test: "haha" };
-            }))
-        .padding(5)
-        .rotate(function () { return ~~(Math.random() * 2) * 90; })
-        .font("Impact")
-        .fontSize(function (d) { return d.size; })
-        .on("end", draw);
+        var layout = cloud()
+            .size([500, 500])
+            .words([
+                "Hello", "world", "normally", "you", "want", "more", "words",
+                "than", "this"].map(function (d) {
+                    return { text: d, size: 10 + Math.random() * 90, test: "haha" };
+                }))
+            .padding(5)
+            .rotate(function () { return ~~(Math.random() * 2) * 90; })
+            .font("Impact")
+            .fontSize(function (d) { return d.size; })
+            .on("end", draw);
 
-    layout.start();
+        layout.start();
 
-    function draw(words) {
-        d3.select("body").append("svg")
-            .attr("width", layout.size()[0])
-            .attr("height", layout.size()[1])
-            .append("g")
-            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-            .selectAll("text")
-            .data(words)
-            .enter().append("text")
-            .style("font-size", function (d) { return d.size + "px"; })
-            .style("font-family", "Impact")
-            .attr("text-anchor", "middle")
-            .attr("transform", function (d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function (d) { return d.text; });
-    }
-</script>*@
+        function draw(words) {
+            d3.select("body").append("svg")
+                .attr("width", layout.size()[0])
+                .attr("height", layout.size()[1])
+                .append("g")
+                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function (d) { return d.size + "px"; })
+                .style("font-family", "Impact")
+                .attr("text-anchor", "middle")
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function (d) { return d.text; });
+        }
+    </script>*@

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaiAirlines.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PaiAirlines.Controllers
 {
@@ -15,7 +16,7 @@ namespace PaiAirlines.Controllers
 
         public AdminController(PaiDBContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
 
@@ -155,18 +156,22 @@ namespace PaiAirlines.Controllers
         // GET: Admin/Create
         public IActionResult AdminStuff()
         {
+            if (HttpContext.Session.GetString("isAdmin") != true.ToString())
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
             ViewData["Cities"] = _context.City.ToList();
             ViewData["FlightBooking"] = _context.Flight.Join(_context.Booking,
                                 flt => flt.ID,
                                 bkg => bkg.FlightID,
-                                (flt, bkg) => new
+                                (flt, bkg) => new Flight
                                 {
-                                    Origin = flt.OriginId,
-                                    Destination = flt.DestinationId,
+                                    OriginId = flt.OriginId,
+                                    DestinationId = flt.DestinationId,
                                     Price = bkg.TotalPrice,
-
+                                    Time = flt.Time
                                 })
-                                .ToListAsync();
+                                .ToList();
             return View();
         }
     }
