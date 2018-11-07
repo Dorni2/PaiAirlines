@@ -40,9 +40,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\cloud.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Drawing.VisualStudio.15.0">
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\System.Drawing.VisualStudio.15.0.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Admin\AdminStuff.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>

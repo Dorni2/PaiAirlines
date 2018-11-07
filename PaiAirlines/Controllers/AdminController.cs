@@ -151,5 +151,23 @@ namespace PaiAirlines.Controllers
         {
             return _context.User.Any(e => e.ID == id);
         }
+
+        // GET: Admin/Create
+        public IActionResult AdminStuff()
+        {
+            ViewData["Cities"] = _context.City.ToList();
+            ViewData["FlightBooking"] = _context.Flight.Join(_context.Booking,
+                                flt => flt.ID,
+                                bkg => bkg.FlightID,
+                                (flt, bkg) => new
+                                {
+                                    Origin = flt.OriginId,
+                                    Destination = flt.DestinationId,
+                                    Price = bkg.TotalPrice,
+
+                                })
+                                .ToListAsync();
+            return View();
+        }
     }
 }
