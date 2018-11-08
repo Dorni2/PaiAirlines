@@ -183,6 +183,7 @@ namespace PaiAirlines.Controllers
         public async Task<IActionResult> Search(int CityId, int OrigID, int Max, DateTime FlightDate)
         {
             ViewData["Citylist"] = _context.City.ToList();
+            Dictionary<int, int> dictOpenSeats = new Dictionary<int, int>();
             List<Flight> lstFilter  = _context.Flight.ToList();
             if (CityId != null && CityId != 0)
             {
@@ -201,6 +202,12 @@ namespace PaiAirlines.Controllers
                 lstFilter = lstFilter.Where(flt => flt.Time.Date == FlightDate.Date).ToList();
             }
 
+            foreach(Flight flt in lstFilter)
+            {
+                dictOpenSeats.Add(flt.ID, (flt.Seats - _context.Booking.Count(bkg => bkg.FlightID == flt.ID)));
+            }
+
+            ViewData["OpenSeats"] = dictOpenSeats;
             return View(lstFilter);
         }
 
