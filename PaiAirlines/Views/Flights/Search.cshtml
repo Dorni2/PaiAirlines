@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "Search";
+    Dictionary<int, int> Available = (Dictionary<int,int>)ViewData["OpenSeats"];
 }
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -148,6 +149,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
+                Available Seats
+            </th>
+            <th>
                 Weather at Destination
             </th>
             <th></th>
@@ -197,6 +201,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Available[item.ID] / @item.Seats
                 </td>
                 <td>
                     <div>
