@@ -26,6 +26,8 @@ namespace PaiAirlines.Controllers
             {
                 return RedirectToAction("NoAccess", "Home");
             }
+
+            ViewData["Citylist"] = _context.City.ToList();
             return View(await _context.Flight.ToListAsync());
         }
 
@@ -63,7 +65,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FlightNumber,OriginId,DestinationId,Time,Price")] Flight flight)
+        public async Task<IActionResult> Create([Bind("ID,FlightNumber,OriginId,DestinationId,Time,Price,Seats")] Flight flight)
         {
             if (ModelState.IsValid)
             {
@@ -103,6 +105,8 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["Citylist"] = _context.City.ToList();
             return View(flight);
         }
 
@@ -111,7 +115,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FlightNumber,Time,Price")] Flight flight)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FlightNumber,OriginId,DestinationId,Time,Price,Seats")] Flight flight)
         {
             if (id != flight.ID)
             {
