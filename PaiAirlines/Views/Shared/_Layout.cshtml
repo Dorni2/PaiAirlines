@@ -50,18 +50,21 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Flights" asp-action="Search">Search</a></li>
                     @if (contextHttp.HttpContext.Session.GetString("ID") != null)
                     {
                         <li><a asp-controller="Bookings" asp-action="myFlights">My Flights</a></li>
                     }
                     @*<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
 
                     @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
                     {
                         <li><a asp-area="" asp-controller="Users" asp-action="Index">Manage Users</a></li>
                         <li><a asp-area="" asp-controller="Flights" asp-action="Index">Manage Flights</a></li>
                         <li><a asp-area="" asp-controller="Cities" asp-action="Index">Manage Cities</a></li>
+                        <li><a asp-area="" asp-controller="Admin" asp-action="AdminStuff">Show Statistics</a></li>
+
                     }
                 </ul>
                     @await Html.PartialAsync("_LoginPartial")
