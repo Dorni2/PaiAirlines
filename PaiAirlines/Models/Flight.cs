@@ -21,17 +21,17 @@ namespace PaiAirlines.Models
 
         // Id of origin. e.g. for TLV, id=4
         [Required]
-        [Display(Name = "Origin ID")]
+        [Display(Name = "Origin")]
         public int OriginId { get; set; }
 
         // Id of destination. e.g. for TLV, id=4
         [Required]
-        [Display(Name = "Destination ID")]
+        [Display(Name = "Destination")]
         public int DestinationId { get; set; }
 
         [Required]
         [Range(0, 538)]
-        [Display(Name = "Destination ID")]
+        [Display(Name = "Seats")]
         public int Seats { get; set; }
 
         [Required]

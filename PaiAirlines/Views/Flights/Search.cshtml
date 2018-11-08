@@ -147,6 +147,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
+            <th>
+                Weather at Destination
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -194,6 +197,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <div>
+                        <iframe src="http://api.openweathermap.org/data/2.5/weather?q=@Dest&units=metric&mode=html&appid=a79bd08c5d0384ebc498be5b9b3b8270" style="float: left;" frameborder="0"></iframe>
+                    </div>
                 </td>
                 <td>
                     <div>
