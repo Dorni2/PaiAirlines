@@ -3,6 +3,7 @@
 
 /.vs
 *.cache
+/netcoreapp1.1
 
 # User-specific files
 *.suo
