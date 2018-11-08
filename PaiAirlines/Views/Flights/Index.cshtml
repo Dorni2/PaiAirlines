@@ -1,4 +1,6 @@
 @model IEnumerable<PaiAirlines.Models.Flight>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor contextHttp
 
 @{
     ViewData["Title"] = "Index";
@@ -12,36 +14,79 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FlightNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Time)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DestinationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (Flight item in Model)
+        {
+            List<City> lstCity = (List<City>)ViewData["Citylist"];
+            string Dest = "Test";
+            string Orig = "Test";
+            foreach (var cItem in lstCity)
+            {
+                if (item.OriginId == cItem.ID)
+                {
+                    Orig = cItem.Name;
+                    break;
+                }
+            }
+            foreach (var cItem in lstCity)
+            {
+                if (item.DestinationId == cItem.ID)
+                {
+                    Dest = cItem.Name;
+                    break;
+                }
+            }
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightNumber)
+                </td>
+                <td>
+                    @Orig
+                </td>
+                <td>
+                    @Dest
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+
+                    @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
