@@ -222,6 +222,7 @@ namespace PaiAirlines.Controllers
                 Booking bkng = new Booking();
                 bkng.Userid = int.Parse(HttpContext.Session.GetString("ID"));
                 bkng.FlightID = id;
+                bkng.SeatsAmount = 1;
                 bkng.TotalPrice = _context.Flight.Single(flt => flt.ID == id).Price;
                 _context.Booking.Add(bkng);
                 await _context.SaveChangesAsync();

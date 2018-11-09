@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "myFlights";
+    List <KeyValuePair<Flight,int>> NumOfSeats = (List <KeyValuePair<Flight,int>>)ViewData["DistinctsFlights"];
 }
 
 <h2>My Orders</h2>
@@ -36,6 +37,8 @@
             List<City> lstCityOrig = (List<City>)ViewData["CityList"];
             string Dest = "Test";
             string Orig = "Test";
+            int Tickets = 0;
+            int totalPrice = 0;
             foreach (var cItem in lstCityOrig)
             {
                 if (item.OriginId == cItem.ID)
@@ -52,26 +55,36 @@
                     break;
                 }
             }
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightNumber)
-            </td>
-            <td>
-                @Orig
-            </td>
-            <td>
-                @Dest
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seats)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-        </tr>
+            foreach (KeyValuePair<Flight, int> kvp in NumOfSeats)
+            {
+                if(kvp.Key.ID == item.ID)
+                {
+                    Tickets = kvp.Value;
+                    totalPrice = kvp.Key.Price;
+                    break;
+                }
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightNumber)
+                </td>
+                <td>
+                    @Orig
+                </td>
+                <td>
+                    @Dest
+                </td>
+                <td>
+                    @Tickets
+                    @*@Html.DisplayFor(modelItem => item.Seats)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @totalPrice
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -88,7 +101,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.SeatsAmount)
-                </th>
+                </th> 
                 <th>
                     @Html.DisplayNameFor(model => model.TotalPrice)
                 </th>
