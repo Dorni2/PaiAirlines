@@ -161,11 +161,12 @@ namespace PaiAirlines.Controllers
             if (HttpContext.Session.GetString("ID") != null)
             {
                 // Creates a Join statement which returns the flights belongs to current user by his bookings
-                return View(await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).Join(_context.Flight,
+                List<Flight> lstFlights = await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).Join(_context.Flight,
                                                                                                                                         bkg => bkg.FlightID,
                                                                                                                                         flt => flt.ID,
                                                                                                                                         (bkg, flt) => new Flight
                                                                                                                                         {
+                                                                                                                                            ID = flt.ID,
                                                                                                                                             FlightNumber = flt.FlightNumber,
                                                                                                                                             DestinationId = flt.DestinationId,
                                                                                                                                             OriginId = flt.OriginId,
@@ -173,9 +174,36 @@ namespace PaiAirlines.Controllers
                                                                                                                                             Seats = bkg.SeatsAmount,
                                                                                                                                             Time = flt.Time
                                                                                                                                         })
-                                                                                                                                        .ToListAsync());
+                                                                                                                                        .ToListAsync();
+
+                Dictionary<int, KeyValuePair<Flight,int>> dictDistinct = new Dictionary<int, KeyValuePair<Flight, int>>();
+                foreach (Flight flt in lstFlights)
+                {
+                    //if(dictDistinct.Keys.ToList().Count(firstFlight => flt.ID == firstFlight.ID) != 0)
+                    if(dictDistinct.ContainsKey(flt.ID))
+                    {
+                        Flight tempFlight = dictDistinct[flt.ID].Key;
+                        tempFlight.Price += flt.Price;
+                        dictDistinct[flt.ID] = new KeyValuePair<Flight, int>(tempFlight, dictDistinct[flt.ID].Value+1); 
+                    }
+                    else
+                    {
+                        dictDistinct[flt.ID] = new KeyValuePair<Flight, int>(flt, 1);
+                    }
+                }
+
+                List <Flight> lstTemp = new List<Flight>();
+
+                foreach (KeyValuePair<Flight,int> flt in dictDistinct.Values)
+                {
+                    lstTemp.Add(flt.Key);
+                }
+
+                ViewData["DistinctsFlights"] = dictDistinct.Values.ToList();
+                return View(lstTemp);
             }
             return RedirectToAction("NoAccess", "Home");
         }
     }
 }
+;
