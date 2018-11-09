@@ -13,6 +13,15 @@
     <Compile Remove="Models\TicketsInBooking.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\images\balloons-1.jpg" />
+    <Content Remove="wwwroot\images\balloons-2.jpg" />
+    <Content Remove="wwwroot\images\balloons-3.jpg" />
+    <Content Remove="wwwroot\images\balloons-4.jpg" />
+    <Content Remove="wwwroot\images\balloons-5.jpg" />
+    <Content Remove="wwwroot\images\bg.jpg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -41,6 +50,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\balloons-1.jpg" />
+    <None Include="wwwroot\images\balloons-2.jpg" />
+    <None Include="wwwroot\images\balloons-3.jpg" />
+    <None Include="wwwroot\images\balloons-4.jpg" />
+    <None Include="wwwroot\images\balloons-5.jpg" />
+    <None Include="wwwroot\images\bg.jpg" />
     <None Include="wwwroot\js\cloud.min.js" />
   </ItemGroup>
 

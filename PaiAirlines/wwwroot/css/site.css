@@ -3,6 +3,56 @@
     padding-bottom: 20px;
 }
 
+/*.navbar navbar-inverse navbar-fixed-top {
+    color:aqua;
+}*/
+
+#MainNavBar {
+    background-color: #b3d1ff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 2.5px #99c2ff;
+}
+
+#NavbarWords {
+    color: #000d1a;
+}
+
+/*------------------------------------------Sliding pictures--------------------------------------*/
+div#background-slideshow {
+    position: relative;
+    height: 745px;
+    width: 1440px;
+    position: absolute;
+    top: 0px;
+    right: -10px;
+}
+
+img.slides {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    height: 745px;
+}
+
+img#home-image {
+    z-index: -666;
+}
+
+img#shop-image {
+    z-index: -777;
+}
+
+img#dine-image {
+    z-index: -888;
+}
+
+img#watch-image {
+    z-index: -999;
+}
+/*--------------------------------------------------------------------------------*/
+
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
