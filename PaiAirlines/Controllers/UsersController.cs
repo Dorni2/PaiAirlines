@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PaiAirlines.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using PaiAirlines.Services;
 
 namespace PaiAirlines.Controllers
 {
@@ -254,6 +255,36 @@ namespace PaiAirlines.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Users
+        public async Task<IActionResult> Recommend()
+        {
+            if (HttpContext.Session.GetString("ID") == null)
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
+            else
+            {
+                ViewData["Citylist"] = _context.City.ToList();
+                List<Flight> lstFlights = await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).Join(_context.Flight,
+                                                                                                                                        bkg => bkg.FlightID,
+                                                                                                                                        flt => flt.ID,
+                                                                                                                                        (bkg, flt) => new Flight
+                                                                                                                                        {
+                                                                                                                                            ID = flt.ID,
+                                                                                                                                            FlightNumber = flt.FlightNumber,
+                                                                                                                                            DestinationId = flt.DestinationId,
+                                                                                                                                            OriginId = flt.OriginId,
+                                                                                                                                            Price = bkg.TotalPrice,
+                                                                                                                                            Seats = bkg.SeatsAmount,
+                                                                                                                                            Time = flt.Time
+                                                                                                                                        })
+                                                                                                                                        .ToListAsync();
+                KNN userKnn = new KNN(lstFlights, 3, _context.Flight.ToList());
+                List<Flight> lstResult = userKnn.Run();
+                return View(lstResult);
+            }
         }
     }
 }
