@@ -88,7 +88,6 @@ D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirl
 D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\bin\Debug\netcoreapp1.1\PaiAirlines.pdb
 D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.csprojAssemblyReference.cache
 D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.csproj.CoreCompileInputs.cache
-D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
 D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfoInputs.cache
 D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfo.cs
 D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.dll
@@ -105,3 +104,4 @@ C:\Users\User\Source\Repos\paiairlines2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiA
 C:\Users\User\Source\Repos\paiairlines2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.AssemblyInfo.cs
 C:\Users\User\Source\Repos\paiairlines2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.dll
 C:\Users\User\Source\Repos\paiairlines2\PaiAirlines\obj\Debug\netcoreapp1.1\PaiAirlines.pdb
+D:\Dor\לימודים\Pai-SuperFinal\PaiAirlines\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs

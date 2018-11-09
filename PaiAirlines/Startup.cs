@@ -13,6 +13,8 @@ using PaiAirlines.Data;
 using PaiAirlines.Models;
 using PaiAirlines.Services;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace PaiAirlines
 {
@@ -40,6 +42,12 @@ namespace PaiAirlines
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // HTTPS
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
+
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -66,6 +74,10 @@ namespace PaiAirlines
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            var options = new RewriteOptions().AddRedirectToHttps();
+
+            app.UseRewriter(options);
 
             if (env.IsDevelopment())
             {
