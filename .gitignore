@@ -5,7 +5,8 @@
 *.cache
 /bin/Debug/netcoreapp1.1
 /Debug/netcoreapp1.1
-
+*.dll
+*.pdb
 
 # User-specific files
 *.suo
