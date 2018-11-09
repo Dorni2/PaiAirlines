@@ -1,0 +1,79 @@
+@model IEnumerable<PaiAirlines.Models.Flight>
+
+@{
+    ViewData["Title"] = "Recommend";
+}
+
+<h2>Recommend</h2>
+
+<p>
+    <a asp-controller="Flights" asp-action="Search">Order Flights</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FlightNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OriginId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DestinationId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Flight item in Model)
+        {
+            List<City> lstCityOrig = (List<City>)ViewData["CityList"];
+            string Dest = "Test";
+            string Orig = "Test";
+            foreach (var cItem in lstCityOrig)
+            {
+                if (item.OriginId == cItem.ID)
+                {
+                    Orig = cItem.Name;
+                    break;
+                }
+            }
+            foreach (var cItem in lstCityOrig)
+            {
+                if (item.DestinationId == cItem.ID)
+                {
+                    Dest = cItem.Name;
+                    break;
+                }
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightNumber)
+                </td>
+                <td>
+                    @Dest
+                </td>
+                <td>
+                    @Orig
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>

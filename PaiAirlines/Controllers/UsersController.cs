@@ -258,7 +258,7 @@ namespace PaiAirlines.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Recommand()
+        public async Task<IActionResult> Recommend()
         {
             if (HttpContext.Session.GetString("ID") == null)
             {
@@ -266,6 +266,7 @@ namespace PaiAirlines.Controllers
             }
             else
             {
+                ViewData["Citylist"] = _context.City.ToList();
                 List<Flight> lstFlights = await _context.Booking.Where(book => book.Userid == int.Parse(HttpContext.Session.GetString("ID"))).Join(_context.Flight,
                                                                                                                                         bkg => bkg.FlightID,
                                                                                                                                         flt => flt.ID,
@@ -281,7 +282,8 @@ namespace PaiAirlines.Controllers
                                                                                                                                         })
                                                                                                                                         .ToListAsync();
                 KNN userKnn = new KNN(lstFlights, 3, _context.Flight.ToList());
-                return View(userKnn.Run());
+                List<Flight> lstResult = userKnn.Run();
+                return View(lstResult);
             }
         }
     }
