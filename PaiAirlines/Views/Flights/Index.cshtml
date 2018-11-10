@@ -9,9 +9,9 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="badge badge-primary" asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -81,9 +81,9 @@
 
                     @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
                     {
-                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
-                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
-                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
+                        <a class="badge badge-warning" asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
+                        <a class="badge badge-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
+                        <a class="badge badge-warning" asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
                     }
                 </td>
             </tr>

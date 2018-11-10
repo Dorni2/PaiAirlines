@@ -127,7 +127,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </form>
 
 
-<table class="table">
+<table class="table table-hover"">
     <thead>
         <tr>
             <th>
@@ -212,7 +212,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </td>
                 <td>
                     <div>
-                        <a id="@BtnID">Show On Map</a> <label>|</label>
+                        <a class="badge badge-info" id="@BtnID">Show On Map</a> <label>|</label>
                         <!-- The Modal -->
                         <div id="@ModalID" class="modal">
                             <!-- Modal content -->
@@ -255,11 +255,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         </script>
                         @if (contextHttp.HttpContext.Session.GetString("isAdmin") == true.ToString())
                         {
-                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
-                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
-                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
+                            <a class="badge badge-warning" asp-action="Edit" asp-route-id="@item.ID">Edit</a> <label>|</label>
+                            <a class="badge badge-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> <label>|</label>
+                            <a class="badge badge-warning" asp-action="Delete" asp-route-id="@item.ID">Delete</a> <label>|</label>
                         }
-                        <a asp-action="Order" asp-route-id="@item.ID">Order</a>
+                        <a class="badge badge-success" asp-action="Order" asp-route-id="@item.ID">Order</a>
                     </div>
                 </td>
             </tr>
