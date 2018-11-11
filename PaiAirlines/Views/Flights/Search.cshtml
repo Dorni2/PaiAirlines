@@ -69,8 +69,26 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 </style>
 <h2>Search</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Show / Hide the search form - change the button's text according to the visibility of the form
+        $('#toggleButton').click(function () {
+            var button = this
+            $('#searchform').slideToggle('slow', function () {
+                if ($('#searchform').is(':visible')) {
+                    $("span", button).text("Hide search");
+                } else {
+                    $("span", button).text("Show search");
+                }
+            });
+        });
+    });
+</script>
 
-<form asp-action="Search">
+<button type="button" id="toggleButton"><span>Hide Search</span></button>
+@*@using (Html.BeginForm(null,null,FormMethod.Post, new { id = "searchform"}))*@
+<form asp-action="Search" id="searchform">
+
     <div class="form-horizontal">
         <div class="col-md-10">
             <label>Origin</label>
