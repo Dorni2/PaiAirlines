@@ -22,13 +22,30 @@ namespace PaiAirlines.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string First, string Last, string Email)
         {
             if (HttpContext.Session.GetString("isAdmin") != true.ToString())
             {
                 return RedirectToAction("NoAccess", "Home");
             }
-            return View(await _context.User.ToListAsync());
+            else
+            {
+                List<User> lstUsers = _context.User.ToList();
+                if (First != null)
+                {
+                    lstUsers = lstUsers.Where(usr => usr.FirstName == First).ToList();
+                }
+                if (Last != null)
+                {
+                    lstUsers = lstUsers.Where(usr => usr.LastName == Last).ToList();
+                }
+                if (Email != null)
+                {
+                    lstUsers = lstUsers.Where(usr => usr.Email == Email).ToList();
+                }
+
+                return View(lstUsers);
+            }
         }
 
         // GET: Users/Details/5

@@ -6,6 +6,38 @@
 
 <h2>Index</h2>
 
+<form asp-action="Index">
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>First name</label>
+            <input type="text" name="First" />
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Last Name</label>
+            <input type="text" name="Last" />
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Email</label>
+            <input type="email" name="Email" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    </br></br>
+    </br></br>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" asp-action="Index" asp-controller="Users" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+
 <p>
     <a class="badge badge-primary" asp-action="Create">Create New</a>
 </p>
