@@ -55,15 +55,21 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            var user = await _context.User
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (user == null)
+            if (isUserExist(id))
             {
-                return NotFound();
-            }
+                var user = await _context.User
+                    .SingleOrDefaultAsync(m => m.ID == id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
 
-            return View(user);
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This user is no longer available... sorry :(" });
+            }
         }
 
         //// GET: Users/Create
@@ -99,14 +105,20 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            var user = await _context.User.SingleOrDefaultAsync(m => m.ID == id);
-            if (user == null)
+            if (isUserExist(id))
             {
-                return NotFound();
+                var user = await _context.User.SingleOrDefaultAsync(m => m.ID == id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                ViewData["Citylist"] = _context.City.ToList();
+                return View(user);
             }
-            ViewData["Citylist"] = _context.City.ToList();
-            return View(user);
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This user is no longer available... sorry :(" });
+            }
         }
 
         // POST: Users/Edit/5
@@ -151,15 +163,21 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            var user = await _context.User
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (user == null)
+            if (isUserExist(id))
             {
-                return NotFound();
-            }
+                var user = await _context.User
+                    .SingleOrDefaultAsync(m => m.ID == id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
 
-            return View(user);
+                return View(user);
+            }
+            else
+            {
+                    return RedirectToAction("OperationError", "Home", new { Alert = "This user is no longer available... sorry :(" });
+            }
         }
 
         // POST: Users/Delete/5
@@ -302,6 +320,15 @@ namespace PaiAirlines.Controllers
                 List<Flight> lstResult = userKnn.Run();
                 return View(lstResult);
             }
+        }
+
+        public bool isUserExist(int? UserID)
+        {
+            if (_context.User.Where(usr => usr.ID == UserID).Count() != 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
