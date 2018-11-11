@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    Dictionary<int, User> dictUsers = (Dictionary<int, User>)ViewData["userList"];
+    List<Flight> lstFlights = (List<Flight>) ViewData["FlightList"];
 }
 
 <h2>Index</h2>
@@ -9,9 +11,18 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-hover">
+<table class="table">
     <thead>
         <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Flight Number
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeatsAmount)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.TotalPrice)
                 </th>
@@ -20,7 +31,17 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    Flight currFlight = lstFlights.Single(flt => flt.ID == item.FlightID);
         <tr>
+            <td>
+                @dictUsers[item.Userid].Email
+            </td>
+            <td>
+                @currFlight.FlightNumber
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatsAmount)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>

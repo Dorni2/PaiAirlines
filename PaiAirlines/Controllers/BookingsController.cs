@@ -26,7 +26,54 @@ namespace PaiAirlines.Controllers
             {
                 return RedirectToAction("NoAccess", "Home");
             }
-            return View(await _context.Booking.ToListAsync());
+            else
+            {
+                List<User> lstUsers = _context.User.ToList();
+                List<Booking> lstFlights = new List<Booking>();
+                Dictionary<int, User> dictUsers = new Dictionary<int, User>();
+                Dictionary<int, int> dictUsersToBookings = new Dictionary<int, int>();
+                foreach (User usr in lstUsers)
+                {
+                    dictUsers.Add(usr.ID, usr);
+
+                    BookingPerUser(usr.ID).ForEach(flt => lstFlights.Add(flt));
+                }
+                ViewData["userList"] = dictUsers;
+                ViewData["FlightList"] = _context.Flight.ToList();
+                return View(lstFlights);
+            }
+        }
+
+        private  List<Booking> BookingPerUser(int userId)
+        {
+            //// Creates a Join statement which returns the flights belongs to current user by his bookings
+            //return (_context.Booking.Where(book => book.Userid == userId).Join(_context.Flight,
+            //                                                                    bkg => bkg.FlightID,
+            //                                                                    flt => flt.ID,
+            //                                                                    (bkg, flt) => new Flight
+            //                                                                    {
+            //                                                                        ID = bkg.Userid,
+            //                                                                        FlightNumber = flt.FlightNumber,
+            //                                                                        DestinationId = flt.DestinationId,
+            //                                                                        OriginId = flt.OriginId,
+            //                                                                        Price = bkg.TotalPrice,
+            //                                                                        Seats = bkg.SeatsAmount,
+            //                                                                        Time = flt.Time
+            //                                                                    })
+            //                                                                    .ToList());
+           return _context.Flight.Join(_context.Booking,
+                                 flt => flt.ID,
+                                 bkg => bkg.FlightID,
+                                 (flt, bkg) => new Booking
+                                 {
+                                     FlightID = flt.ID,
+                                     ID = bkg.ID,
+                                     Userid = bkg.Userid,
+                                     SeatsAmount = bkg.SeatsAmount,
+                                     TotalPrice = bkg.TotalPrice
+                                 })
+                                 .Where(bkg => bkg.Userid == userId)
+                                 .ToList();
         }
 
         // GET: Bookings/Details/5
@@ -82,6 +129,7 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
+            ViewData["FlightList"] = _context.Flight.ToList();
             return View(booking);
         }
 
@@ -90,7 +138,7 @@ namespace PaiAirlines.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TotalPrice")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Userid,FlightID,SeatsAmount,TotalPrice")] Booking booking)
         {
             if (id != booking.ID)
             {

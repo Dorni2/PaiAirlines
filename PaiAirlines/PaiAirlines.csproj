@@ -50,12 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\balloons-1.jpg" />
-    <None Include="wwwroot\images\balloons-2.jpg" />
-    <None Include="wwwroot\images\balloons-3.jpg" />
-    <None Include="wwwroot\images\balloons-4.jpg" />
-    <None Include="wwwroot\images\balloons-5.jpg" />
-    <None Include="wwwroot\images\bg.jpg" />
     <None Include="wwwroot\js\cloud.min.js" />
   </ItemGroup>
 

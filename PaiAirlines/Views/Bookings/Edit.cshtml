@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    List<Flight> flights = (List<Flight>)ViewData["FlightList"];
 }
 
 <h2>Edit</h2>
@@ -11,7 +12,28 @@
         <h4>Booking</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="Userid" />
+        <input type="hidden" asp-for="FlightID" />
+
+        @*<div class="form-group">
+            <label class="col-md-2 control-label">Flight Number</label>
+            <div class="col-md-10">
+                <select name="Flight">
+                    @foreach (Flight flt in flights)
+                    {
+                        <option value="@flt.ID">@flt.FlightNumber</option>
+                    }
+                </select>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label asp-for="SeatsAmount" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SeatsAmount" class="form-control" />
+                <span asp-validation-for="SeatsAmount" class="text-danger"></span>
+            </div>
+        </div>
         <div class="form-group">
             <label asp-for="TotalPrice" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -31,6 +53,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
