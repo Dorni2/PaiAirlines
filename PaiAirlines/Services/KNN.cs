@@ -34,22 +34,15 @@ namespace PaiAirlines.Services
             // Create list to return
             List<Flight> lstResult = new List<Flight>();
 
-            if (lstFlights.Count <= NumberK)
-            {
-                lstResult = lstFlights;
-            }
-            else
-            {
-                // Create a list for the prices
-                lstFlights.ForEach(flt => lstPrices.Add(flt.Price));
+            // Create a list for the prices
+            lstFlights.ForEach(flt => lstPrices.Add(flt.Price));
 
-                // Calculate the mean
-                this.Mean = lstPrices.Average();
+            // Calculate the mean
+            this.Mean = lstPrices.Average();
 
-                CalcDistances(this.Mean);
+            CalcDistances(this.Mean);
 
-                lstResult = ExtractMinimun();
-            }
+            lstResult = ExtractMinimun();
 
             return lstResult;
         }

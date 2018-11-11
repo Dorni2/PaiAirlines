@@ -180,7 +180,7 @@ namespace PaiAirlines.Controllers
         }
 
         // GET: Flights/Search
-        [HttpGet]
+        //[HttpGet]
         public async Task<IActionResult> Search(int CityId, int OrigID, int Max, DateTime FlightDate)
         {
             ViewData["Citylist"] = _context.City.ToList();
