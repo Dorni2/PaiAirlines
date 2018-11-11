@@ -1,12 +1,39 @@
 
 @{
     ViewData["Title"] = "View";
+    Dictionary<City, int> dictCityGroups = (Dictionary<City, int>)ViewData["Citygroups"];
 }
 
 <h2>Admin Page</h2>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
 
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Destination
+            </th>
+            <th>
+                # of Flights
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (KeyValuePair<City, int> item in dictCityGroups)
+        {
+        <tr>
+            <td>
+                @item.Key.Name
+            </td>
+            <td>
+                @item.Value
+            </td>
+        </tr>
+        }
+        </tbody>
+</table>
 
 <canvas id="BookingsForDestination" width="150" height="150"></canvas>
 <canvas id="BookingPerMounth" width="150" height="150"></canvas>
@@ -58,7 +85,7 @@
                             data: dataArrMonth,
                         //data: [12, 19, 3, 5, 2, 3],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)'//,
+                            /*'rgba(255, 99, 132, 0.2)'*///,
                             //'rgba(54, 162, 235, 0.2)',
                             //'rgba(255, 206, 86, 0.2)',
                             //'rgba(75, 192, 192, 0.2)',
@@ -66,7 +93,7 @@
                             //'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(255,99,132,1)'//,
+                            /*'rgba(255,99,132,1)'*///,
                             //'rgba(54, 162, 235, 1)',
                             //'rgba(255, 206, 86, 1)',
                             //'rgba(75, 192, 192, 1)',
@@ -105,7 +132,7 @@
                         data: dataArr,
                         //data: [12, 19, 3, 5, 2, 3],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)'//,
+                            /*'rgba(255, 99, 132, 0.2)'*///,
                             //'rgba(54, 162, 235, 0.2)',
                             //'rgba(255, 206, 86, 0.2)',
                             //'rgba(75, 192, 192, 0.2)',
@@ -113,7 +140,7 @@
                             //'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(255,99,132,1)'//,
+                            /*'rgba(255,99,132,1)'*///,
                             //'rgba(54, 162, 235, 1)',
                             //'rgba(255, 206, 86, 1)',
                             //'rgba(75, 192, 192, 1)',

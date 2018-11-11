@@ -172,6 +172,16 @@ namespace PaiAirlines.Controllers
                                     Time = flt.Time
                                 })
                                 .ToList();
+
+            Dictionary<City, int> dictCityGroups = new Dictionary<City, int>();
+            List<City> lstCities = _context.City.ToList();
+            List<object> temp = new List<object>();
+            _context.Flight.GroupBy(flt => flt.DestinationId).Select(g => new 
+            {
+                ID = g.Key,
+                CountA = g.Count()
+            }).ToList().ForEach(freq => dictCityGroups.Add(lstCities.Find(ct => ct.ID == freq.ID), freq.CountA));
+            ViewData["Citygroups"] = dictCityGroups;
             return View();
         }
     }
