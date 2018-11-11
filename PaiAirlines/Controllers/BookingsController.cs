@@ -84,14 +84,21 @@ namespace PaiAirlines.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Booking
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (booking == null)
+            if (isBookExist(id))
             {
-                return NotFound();
-            }
+                var booking = await _context.Booking
+                .SingleOrDefaultAsync(m => m.ID == id);
+                if (booking == null)
+                {
+                    return NotFound();
+                }
 
-            return View(booking);
+                return View(booking);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This Booking is no longer available... sorry :(" });
+            }
         }
 
         // GET: Bookings/Create
@@ -124,13 +131,20 @@ namespace PaiAirlines.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Booking.SingleOrDefaultAsync(m => m.ID == id);
-            if (booking == null)
+            if (isBookExist(id))
             {
-                return NotFound();
+                var booking = await _context.Booking.SingleOrDefaultAsync(m => m.ID == id);
+                if (booking == null)
+                {
+                    return NotFound();
+                }
+                ViewData["FlightList"] = _context.Flight.ToList();
+                return View(booking);
             }
-            ViewData["FlightList"] = _context.Flight.ToList();
-            return View(booking);
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This Booking is no longer available... sorry :(" });
+            }
         }
 
         // POST: Bookings/Edit/5
@@ -176,14 +190,21 @@ namespace PaiAirlines.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Booking
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (booking == null)
+            if (isBookExist(id))
             {
-                return NotFound();
-            }
+                var booking = await _context.Booking
+                    .SingleOrDefaultAsync(m => m.ID == id);
+                if (booking == null)
+                {
+                    return NotFound();
+                }
 
-            return View(booking);
+                return View(booking);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This Booking is no longer available... sorry :(" });
+            }
         }
 
         // POST: Bookings/Delete/5
@@ -251,6 +272,15 @@ namespace PaiAirlines.Controllers
                 return View(lstTemp);
             }
             return RedirectToAction("NoAccess", "Home");
+        }
+
+        public bool isBookExist(int? BookId)
+        {
+            if (_context.Booking.Where(usr => usr.ID == BookId).Count() != 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

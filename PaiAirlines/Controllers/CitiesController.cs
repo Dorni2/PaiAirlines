@@ -52,14 +52,21 @@ namespace PaiAirlines.Controllers
                 return NotFound();
             }
 
-            var city = await _context.City
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (city == null)
+            if (isCityExist(id))
             {
-                return NotFound();
-            }
+                var city = await _context.City
+                    .SingleOrDefaultAsync(m => m.ID == id);
+                if (city == null)
+                {
+                    return NotFound();
+                }
 
-            return View(city);
+                return View(city);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This City is no longer available... sorry :(" });
+            }
         }
 
         // GET: Cities/Create
@@ -95,13 +102,19 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            var city = await _context.City.SingleOrDefaultAsync(m => m.ID == id);
-            if (city == null)
+            if (isCityExist(id))
             {
-                return NotFound();
+                var city = await _context.City.SingleOrDefaultAsync(m => m.ID == id);
+                if (city == null)
+                {
+                    return NotFound();
+                }
+                return View(city);
             }
-            return View(city);
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This City is no longer available... sorry :(" });
+            }
         }
 
         //// POST: Cities/Edit/5
@@ -188,14 +201,21 @@ namespace PaiAirlines.Controllers
                 return NotFound();
             }
 
-            var city = await _context.City
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (city == null)
+            if (isCityExist(id))
             {
-                return NotFound();
-            }
+                var city = await _context.City
+                    .SingleOrDefaultAsync(m => m.ID == id);
+                if (city == null)
+                {
+                    return NotFound();
+                }
 
-            return View(city);
+                return View(city);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This City is no longer available... sorry :(" });
+            }
         }
 
         // POST: Cities/Delete/5
@@ -212,6 +232,15 @@ namespace PaiAirlines.Controllers
         private bool CityExists(int id)
         {
             return _context.City.Any(e => e.ID == id);
+        }
+
+        public bool isCityExist(int? CityId)
+        {
+            if (_context.City.Where(usr => usr.ID == CityId).Count() != 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
