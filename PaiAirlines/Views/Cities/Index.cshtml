@@ -6,30 +6,54 @@
 
 <h2>Index</h2>
 
+<form asp-action="Index">
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>City Name</label>
+            <input type="text" name="City" />
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Country Name</label>
+            <input type="text" name="Country" />
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" asp-action="Index" asp-controller="Cities" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+
 <p>
     <a class="badge badge-primary" asp-action="Create">Create New</a>
 </p>
 <table class="table table-hover">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a class="badge badge-warning" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a class="badge badge-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a class="badge badge-warning" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a class="badge badge-warning" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a class="badge badge-warning" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a class="badge badge-warning" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -20,13 +20,28 @@ namespace PaiAirlines.Controllers
         }
 
         // GET: Cities
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string City, string Country)
         {
             if (HttpContext.Session.GetString("isAdmin") != true.ToString())
             {
                 return RedirectToAction("NoAccess", "Home");
             }
-            return View(await _context.City.ToListAsync());
+            else
+            {
+                List<City> lstCity = _context.City.ToList();
+
+                if(City != null)
+                {
+                    lstCity = lstCity.Where(ct => ct.Name.Split(',')[0].ToLower() == City.ToLower()).ToList();
+                }
+                if (Country != null)
+                {
+                    lstCity = lstCity.Where(ct => ct.Name.Split(',')[1].ToLower() == Country.ToLower()).ToList();
+                }
+
+
+                return View(lstCity);
+            }
         }
 
         // GET: Cities/Details/5
