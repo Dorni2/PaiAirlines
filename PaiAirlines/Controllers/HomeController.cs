@@ -37,5 +37,11 @@ namespace PaiAirlines.Controllers
             return View();
         }
 
+        public IActionResult OperationError(string Alert)
+        {
+            ViewData["Alert"] = Alert;
+            return View();
+        }
+
     }
 }

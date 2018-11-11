@@ -59,15 +59,21 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            var flight = await _context.Flight
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (flight == null)
+            if (isFlightExist(id))
             {
-                return NotFound();
-            }
+                var flight = await _context.Flight
+                .SingleOrDefaultAsync(m => m.ID == id);
+                if (flight == null)
+                {
+                    return NotFound();
+                }
 
-            return View(flight);
+                return View(flight);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This flight is no longer available... sorry :(" });
+            }
         }
 
         // GET: Flights/Create
@@ -88,12 +94,12 @@ namespace PaiAirlines.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,FlightNumber,OriginId,DestinationId,Time,Price,Seats")] Flight flight)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
-            }
+            //}
             return View(flight);
         }
 
@@ -121,14 +127,21 @@ namespace PaiAirlines.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.Flight.SingleOrDefaultAsync(m => m.ID == id);
-            if (flight == null)
+            if (isFlightExist(id))
             {
-                return NotFound();
-            }
+                var flight = await _context.Flight.SingleOrDefaultAsync(m => m.ID == id);
+                if (flight == null)
+                {
+                    return NotFound();
+                }
 
-            ViewData["Citylist"] = _context.City.ToList();
-            return View(flight);
+                ViewData["Citylist"] = _context.City.ToList();
+                return View(flight);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This flight is no longer available... sorry :(" });
+            }
         }
 
         // POST: Flights/Edit/5
@@ -142,9 +155,6 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(flight);
@@ -162,8 +172,6 @@ namespace PaiAirlines.Controllers
                     }
                 }
                 return RedirectToAction("Index");
-            }
-            return View(flight);
         }
 
         // GET: Flights/Delete/5
@@ -173,15 +181,21 @@ namespace PaiAirlines.Controllers
             {
                 return NotFound();
             }
-
-            var flight = await _context.Flight
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (flight == null)
+            if (isFlightExist(id))
             {
-                return NotFound();
-            }
+                var flight = await _context.Flight
+                .SingleOrDefaultAsync(m => m.ID == id);
+                if (flight == null)
+                {
+                    return NotFound();
+                }
 
-            return View(flight);
+                return View(flight);
+            }
+            else
+            {
+                return RedirectToAction("OperationError", "Home", new { Alert = "This flight is no longer available... sorry :(" });
+            }
         }
 
         // POST: Flights/Delete/5
@@ -189,8 +203,15 @@ namespace PaiAirlines.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var flight = await _context.Flight.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Flight.Remove(flight);
+            Flight flt = await _context.Flight.SingleOrDefaultAsync(m => m.ID == id);
+            await _context.Booking.ForEachAsync(bkg =>
+             {
+                 if (bkg.FlightID == flt.ID)
+                 {
+                     _context.Booking.Remove(bkg);
+                 }
+             });
+                _context.Flight.Remove(flt);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -241,17 +262,32 @@ namespace PaiAirlines.Controllers
             }
             else
             {
-                Booking bkng = new Booking();
-                bkng.Userid = int.Parse(HttpContext.Session.GetString("ID"));
-                bkng.FlightID = id;
-                bkng.SeatsAmount = 1;
-                bkng.TotalPrice = _context.Flight.Single(flt => flt.ID == id).Price;
-                _context.Booking.Add(bkng);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("index", "Home");
+                if (_context.Flight.Where(flt => flt.ID == id).Count() != 0)
+                {
+                    Booking bkng = new Booking();
+                    bkng.Userid = int.Parse(HttpContext.Session.GetString("ID"));
+                    bkng.FlightID = id;
+                    bkng.SeatsAmount = 1;
+                    bkng.TotalPrice = _context.Flight.Single(flt => flt.ID == id).Price;
+                    _context.Booking.Add(bkng);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("OperationError", "Home", new { Alert = "This flight is no longer available... sorry :(" });
+                }
             }
 
-            
+        }
+
+        public bool isFlightExist(int? FlightId)
+        {
+            if (_context.Flight.Where(flt => flt.ID == FlightId).Count() != 0)
+            {
+                return true;
+            }
+            return false;
         }
 
     }
