@@ -20,15 +20,36 @@ namespace PaiAirlines.Controllers
         }
 
         // GET: Flights
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int CityId, int OrigID, int Max, DateTime FlightDate)
         {
             if (HttpContext.Session.GetString("isAdmin") != true.ToString())
             {
                 return RedirectToAction("NoAccess", "Home");
             }
+            else
+            {
+                ViewData["Citylist"] = _context.City.ToList();
+                List<Flight> lstFilter = _context.Flight.ToList();
+                if (CityId != null && CityId != 0)
+                {
+                    lstFilter = lstFilter.Where(flt => flt.DestinationId == CityId).ToList();
+                }
+                if (OrigID != null && OrigID != 0)
+                {
+                    lstFilter = lstFilter.Where(flt => flt.OriginId == OrigID).ToList();
+                }
+                if (Max != null && Max != 0)
+                {
+                    lstFilter = lstFilter.Where(flt => flt.Price <= Max).ToList();
+                }
+                if (FlightDate >= DateTime.Today)
+                {
+                    lstFilter = lstFilter.Where(flt => flt.Time.Date == FlightDate.Date).ToList();
+                }
 
-            ViewData["Citylist"] = _context.City.ToList();
-            return View(await _context.Flight.ToListAsync());
+                ViewData["Citylist"] = _context.City.ToList();
+                return View(lstFilter);
+            }
         }
 
         // GET: Flights/Details/5

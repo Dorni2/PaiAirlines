@@ -8,6 +8,64 @@
 
 <h2>Index</h2>
 
+<form asp-action="Index">
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Origin</label>
+            <select class="form-control" name="OrigId">
+                <option value="0">Choose Origin</option>
+                @{
+                    List<City> lstCityOrig = (List<City>)ViewData["Citylist"];
+                    foreach (var cItem in lstCityOrig)
+                    {
+                        <option value=@cItem.ID>@cItem.Name</option>
+                    }
+                }
+            </select>
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Destination</label>
+            <select class="form-control" name="CityId">
+                <option value="0">Choose Destination</option>
+                @{
+                    List<City> lstCityDest = (List<City>)ViewData["Citylist"];
+                    foreach (var cItem in lstCityDest)
+                    {
+                        <option value=@cItem.ID>@cItem.Name</option>
+                    }
+                }
+            </select>
+            <span class="text-danger"></span>
+        </div>
+    </div></br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Max Price</label>
+            <input type="number" name="Max" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    </br></br>
+    <div class="form-horizontal">
+        <div class="col-md-10">
+            <label>Departure Date</label>
+            <input type="date" name="FlightDate" placeholder="MM/DD/YYYY" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    </br></br>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" asp-action="Search" asp-controller="Flights" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+
+
+
 <p>
     <a class="badge badge-primary" asp-action="Create">Create New</a>
 </p>
