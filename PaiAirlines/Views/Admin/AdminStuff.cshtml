@@ -5,90 +5,90 @@
 }
 
 <h2>Admin Page</h2>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Show / Hide the search form - change the button's text according to the visibility of the form
-        $('#TableButton').click(function () {
-            var button = this
-            $('#Table').slideToggle('slow', function () {
-                if ($('#Table').is(':visible')) {
-                    $("span", button).text("Hide Table");
-                } else {
-                    $("span", button).text("Show Table");
-                }
+<div style="background-image:url(/images/KimAndDor.png); background-size:contain;">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Show / Hide the search form - change the button's text according to the visibility of the form
+            $('#TableButton').click(function () {
+                var button = this
+                $('#Table').slideToggle('slow', function () {
+                    if ($('#Table').is(':visible')) {
+                        $("span", button).text("Hide Table");
+                    } else {
+                        $("span", button).text("Show Table");
+                    }
+                });
             });
         });
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Show / Hide the search form - change the button's text according to the visibility of the form
-        $('#btnOne').click(function () {
-            var button = this
-            $('#graphOne').slideToggle('slow', function () {
-                if ($('#graphOne').is(':visible')) {
-                    $("span", button).text("Hide Destination Graph");
-                } else {
-                    $("span", button).text("Show Destination Graph");
-                }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Show / Hide the search form - change the button's text according to the visibility of the form
+            $('#btnOne').click(function () {
+                var button = this
+                $('#graphOne').slideToggle('slow', function () {
+                    if ($('#graphOne').is(':visible')) {
+                        $("span", button).text("Hide Destination Graph");
+                    } else {
+                        $("span", button).text("Show Destination Graph");
+                    }
+                });
             });
         });
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Show / Hide the search form - change the button's text according to the visibility of the form
-        $('#btnTwo').click(function () {
-            var button = this
-            $('#graphTwo').slideToggle('slow', function () {
-                if ($('#graphTwo').is(':visible')) {
-                    $("span", button).text("Hide Monthes Graph");
-                } else {
-                    $("span", button).text("Show Monthes Graph");
-                }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Show / Hide the search form - change the button's text according to the visibility of the form
+            $('#btnTwo').click(function () {
+                var button = this
+                $('#graphTwo').slideToggle('slow', function () {
+                    if ($('#graphTwo').is(':visible')) {
+                        $("span", button).text("Hide Monthes Graph");
+                    } else {
+                        $("span", button).text("Show Monthes Graph");
+                    }
+                });
             });
         });
-    });
-</script>
-<button type="button" id="TableButton"><span>Hide Table</span></button>
-<form id="Table">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>
-                    Destination
-                </th>
-                <th>
-                    # of Flights
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (KeyValuePair<City, int> item in dictCityGroups)
-            {
+    </script>
+    <button type="button" id="TableButton"><span>Hide Table</span></button>
+    <form id="Table">
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>
-                        @item.Key.Name
-                    </td>
-                    <td>
-                        @item.Value
-                    </td>
+                    <th>
+                        Destination
+                    </th>
+                    <th>
+                        # of Flights
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</form>
-<button type="button" id="btnOne"><span>Hide Destination Graph</span></button>
-<form id="graphOne">
-    <canvas id="BookingsForDestination" width="150" height="150"></canvas>
-</form>
-<button type="button" id="btnTwo"><span>Hide Monthes Graph</span></button>
-<form id="graphTwo">
-    <canvas id="BookingPerMounth" width="150" height="150"></canvas>
-</form>
+            </thead>
+            <tbody>
+
+                @foreach (KeyValuePair<City, int> item in dictCityGroups)
+                {
+                    <tr>
+                        <td>
+                            @item.Key.Name
+                        </td>
+                        <td>
+                            @item.Value
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+    <button type="button" id="btnOne"><span>Hide Destination Graph</span></button>
+    <form id="graphOne">
+        <canvas id="BookingsForDestination" width="150" height="150"></canvas>
+    </form>
+    <button type="button" id="btnTwo"><span>Hide Monthes Graph</span></button>
+    <form id="graphTwo">
+        <canvas id="BookingPerMounth" width="150" height="150"></canvas>
+    </form>
     @{
         // creating a list of cities for the graph labels
         List<City> Cities = (List<City>)ViewData["Cities"];
@@ -137,7 +137,19 @@
                             data: dataArrMonth,
                         //data: [12, 19, 3, 5, 2, 3],
                         backgroundColor: [
-                            /*'rgba(255, 99, 132, 0.2)'*///,
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)'
                             //'rgba(54, 162, 235, 0.2)',
                             //'rgba(255, 206, 86, 0.2)',
                             //'rgba(75, 192, 192, 0.2)',
@@ -145,7 +157,18 @@
                             //'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
-                            /*'rgba(255,99,132,1)'*///,
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)'
                             //'rgba(54, 162, 235, 1)',
                             //'rgba(255, 206, 86, 1)',
                             //'rgba(75, 192, 192, 1)',
@@ -184,7 +207,39 @@
                         data: dataArr,
                         //data: [12, 19, 3, 5, 2, 3],
                         backgroundColor: [
-                            /*'rgba(255, 99, 132, 0.2)'*///,
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)',
+                            'rgba(255, 99, 132, 0.9)'
                             //'rgba(54, 162, 235, 0.2)',
                             //'rgba(255, 206, 86, 0.2)',
                             //'rgba(75, 192, 192, 0.2)',
@@ -192,7 +247,48 @@
                             //'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
-                            /*'rgba(255,99,132,1)'*///,
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+
                             //'rgba(54, 162, 235, 1)',
                             //'rgba(255, 206, 86, 1)',
                             //'rgba(75, 192, 192, 1)',
@@ -223,7 +319,7 @@
 
 
 
-
+</div>
 
 
 
