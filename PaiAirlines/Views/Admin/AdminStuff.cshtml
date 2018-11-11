@@ -7,71 +7,123 @@
 <h2>Admin Page</h2>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Show / Hide the search form - change the button's text according to the visibility of the form
+        $('#TableButton').click(function () {
+            var button = this
+            $('#Table').slideToggle('slow', function () {
+                if ($('#Table').is(':visible')) {
+                    $("span", button).text("Hide Table");
+                } else {
+                    $("span", button).text("Show Table");
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Show / Hide the search form - change the button's text according to the visibility of the form
+        $('#btnOne').click(function () {
+            var button = this
+            $('#graphOne').slideToggle('slow', function () {
+                if ($('#graphOne').is(':visible')) {
+                    $("span", button).text("Hide Destination Graph");
+                } else {
+                    $("span", button).text("Show Destination Graph");
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Show / Hide the search form - change the button's text according to the visibility of the form
+        $('#btnTwo').click(function () {
+            var button = this
+            $('#graphTwo').slideToggle('slow', function () {
+                if ($('#graphTwo').is(':visible')) {
+                    $("span", button).text("Hide Monthes Graph");
+                } else {
+                    $("span", button).text("Show Monthes Graph");
+                }
+            });
+        });
+    });
+</script>
+<button type="button" id="TableButton"><span>Hide Table</span></button>
+<form id="Table">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Destination
+                </th>
+                <th>
+                    # of Flights
+                </th>
+            </tr>
+        </thead>
+        <tbody>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>
-                Destination
-            </th>
-            <th>
-                # of Flights
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (KeyValuePair<City, int> item in dictCityGroups)
-        {
-        <tr>
-            <td>
-                @item.Key.Name
-            </td>
-            <td>
-                @item.Value
-            </td>
-        </tr>
-        }
+            @foreach (KeyValuePair<City, int> item in dictCityGroups)
+            {
+                <tr>
+                    <td>
+                        @item.Key.Name
+                    </td>
+                    <td>
+                        @item.Value
+                    </td>
+                </tr>
+            }
         </tbody>
-</table>
+    </table>
+</form>
+<button type="button" id="btnOne"><span>Hide Destination Graph</span></button>
+<form id="graphOne">
+    <canvas id="BookingsForDestination" width="150" height="150"></canvas>
+</form>
+<button type="button" id="btnTwo"><span>Hide Monthes Graph</span></button>
+<form id="graphTwo">
+    <canvas id="BookingPerMounth" width="150" height="150"></canvas>
+</form>
+    @{
+        // creating a list of cities for the graph labels
+        List<City> Cities = (List<City>)ViewData["Cities"];
+        List<string> CityName = new List<string>();
+        Cities.ForEach(ct => CityName.Add(ct.Name));
+        string[] arrLabels = CityName.ToArray();
 
-<canvas id="BookingsForDestination" width="150" height="150"></canvas>
-<canvas id="BookingPerMounth" width="150" height="150"></canvas>
-@{
-    // creating a list of cities for the graph labels
-    List<City> Cities = (List<City>)ViewData["Cities"];
-    List<string> CityName = new List<string>();
-    Cities.ForEach(ct => CityName.Add(ct.Name));
-    string[] arrLabels = CityName.ToArray();
+        // Creating a list of values for the graph data
+        List<Flight> FlightBooking = (List<Flight>)ViewData["FlightBooking"];
+        List<int> DestinationCount = new List<int>();
+        foreach (City ct in Cities)
+        {
+            DestinationCount.Add(FlightBooking.Count(fltbk => fltbk.DestinationId == ct.ID));
+        }
+        int[] arrData = DestinationCount.ToArray();
 
-    // Creating a list of values for the graph data
-    List<Flight> FlightBooking = (List<Flight>)ViewData["FlightBooking"];
-    List<int> DestinationCount = new List<int>();
-    foreach (City ct in Cities)
-    {
-        DestinationCount.Add(FlightBooking.Count(fltbk => fltbk.DestinationId == ct.ID));
+        // Creating a list of dates for the labels
+        string[] arrMonthes = { "January", "February", "March", "Abpril", "May", "June", "July", "August", "September", "October", "November", "December" };
+        int[] arrBookingsByMonth = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        // Creating a list of flights per month
+
+        foreach (Flight bltbk in FlightBooking)
+        {
+            arrBookingsByMonth[(bltbk.Time.Month - 1)] += bltbk.Price;
+        }
+
+
+
+
+        //string[] arrNames = {"Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
+
+
+
     }
-    int[] arrData = DestinationCount.ToArray();
-
-    // Creating a list of dates for the labels
-    string[] arrMonthes = { "January", "February", "March", "Abpril", "May", "June", "July", "August", "September", "October", "November", "December" };
-    int[] arrBookingsByMonth = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    // Creating a list of flights per month
-
-    foreach (Flight bltbk in FlightBooking)
-    {
-        arrBookingsByMonth[(bltbk.Time.Month - 1)] += bltbk.Price;
-    }
-
-
-
-
-    //string[] arrNames = {"Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
-
-
-
-}
-<script>
+    <script>
     var ctx = document.getElementById("BookingsForDestination");
     var dataArrMonth = @Html.Raw(Json.Serialize(arrBookingsByMonth));
     var labelsArrMonth = @Html.Raw(Json.Serialize(arrMonthes));
@@ -117,8 +169,8 @@
             }
         }
     });
-</script>
-<script>
+    </script>
+    <script>
     var ctx = document.getElementById("BookingPerMounth");
     var dataArr = @Html.Raw(Json.Serialize(arrData));
     var labelsArr = @Html.Raw(Json.Serialize(arrLabels));
@@ -164,7 +216,7 @@
             }
         }
     });
-</script>
+    </script>
 
 
 
@@ -175,41 +227,41 @@
 
 
 
-@*<script src="https://www.jasondavies.com/wordcloud/cloud.min.js" charset="utf-8"></script>
-    <script>
-        //var d3 = require("d3"),
-        //import cloud from ("./d3.layout.cloud");
+    @*<script src="https://www.jasondavies.com/wordcloud/cloud.min.js" charset="utf-8"></script>
+        <script>
+            //var d3 = require("d3"),
+            //import cloud from ("./d3.layout.cloud");
 
-        var layout = cloud()
-            .size([500, 500])
-            .words([
-                "Hello", "world", "normally", "you", "want", "more", "words",
-                "than", "this"].map(function (d) {
-                    return { text: d, size: 10 + Math.random() * 90, test: "haha" };
-                }))
-            .padding(5)
-            .rotate(function () { return ~~(Math.random() * 2) * 90; })
-            .font("Impact")
-            .fontSize(function (d) { return d.size; })
-            .on("end", draw);
+            var layout = cloud()
+                .size([500, 500])
+                .words([
+                    "Hello", "world", "normally", "you", "want", "more", "words",
+                    "than", "this"].map(function (d) {
+                        return { text: d, size: 10 + Math.random() * 90, test: "haha" };
+                    }))
+                .padding(5)
+                .rotate(function () { return ~~(Math.random() * 2) * 90; })
+                .font("Impact")
+                .fontSize(function (d) { return d.size; })
+                .on("end", draw);
 
-        layout.start();
+            layout.start();
 
-        function draw(words) {
-            d3.select("body").append("svg")
-                .attr("width", layout.size()[0])
-                .attr("height", layout.size()[1])
-                .append("g")
-                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-                .selectAll("text")
-                .data(words)
-                .enter().append("text")
-                .style("font-size", function (d) { return d.size + "px"; })
-                .style("font-family", "Impact")
-                .attr("text-anchor", "middle")
-                .attr("transform", function (d) {
-                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                })
-                .text(function (d) { return d.text; });
-        }
-    </script>*@
+            function draw(words) {
+                d3.select("body").append("svg")
+                    .attr("width", layout.size()[0])
+                    .attr("height", layout.size()[1])
+                    .append("g")
+                    .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                    .selectAll("text")
+                    .data(words)
+                    .enter().append("text")
+                    .style("font-size", function (d) { return d.size + "px"; })
+                    .style("font-family", "Impact")
+                    .attr("text-anchor", "middle")
+                    .attr("transform", function (d) {
+                        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                    })
+                    .text(function (d) { return d.text; });
+            }
+        </script>*@
